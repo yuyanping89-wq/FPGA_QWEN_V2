@@ -1,0 +1,13 @@
+INFO: [SIM 2] *************** CSIM start ***************
+INFO: [SIM 4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../../../module_raw/qwen25_jxp_1012/v2_interface_tb.cpp in release mode
+   Compiling ../../../../../../module_raw/qwen25_jxp_1012/attn.cpp in release mode
+   Generating csim.exe
+M10 rows=1 base=0 len=1 layer=0 causal=1 max_abs_error=0
+M10 rows=1 base=2047 len=2048 layer=23 causal=1 max_abs_error=2.97757e-005
+M10 rows=9 base=17 len=26 layer=7 causal=1 max_abs_error=0.00389353
+M10 rows=3 base=4 len=17 layer=8 causal=0 max_abs_error=0.00389217
+M10 rows=64 base=0 len=64 layer=1 causal=1 max_abs_error=0.00780949
+M08_M10_V2_INTERFACE_PASS failures=0
+INFO: [SIM 1] CSim done with 0 errors.
+INFO: [SIM 3] *************** CSIM finish ***************

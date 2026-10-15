@@ -1,0 +1,81 @@
+{
+  "schema": "pspl-abi-v2-module-manifest-v1",
+  "module": "M05 token embedding",
+  "vlnv": "llm-fpga.local:user:m05_embedding_v2:2.1",
+  "core_revision": 3,
+  "rtl_top": "m05_embedding_v2_ip",
+  "hls_top": "embedding_v2",
+  "abi_version": 2,
+  "build_config": "0x30010011",
+  "supported_flags_mask": "0x0000000B",
+  "flags": {
+    "bit0": "IEEE reflected CRC-32 of output bytes",
+    "bit1": "enable performance result snapshot",
+    "bit2": "unsupported DEBUG_SNAPSHOT; returns BAD_FLAGS",
+    "bit3": "strict check"
+  },
+  "crc": {
+    "polynomial_reflected": "0xEDB88320",
+    "initial": "0xFFFFFFFF",
+    "final_xor": "0xFFFFFFFF",
+    "byte_order": "BF16 output order, low byte first",
+    "execution": "computed in output write path",
+    "disabled_result": "0"
+  },
+  "performance": {
+    "total_cycles": "accepted start through ap_done inclusive, sampled rising edges",
+    "compute_cycles": "zero; HLS compute-stage activity signal is not exposed",
+    "read_beats": "sum of RVALID && RREADY handshakes on IDs and weight masters",
+    "write_beats": "sum of WVALID && WREADY handshakes on output master",
+    "beat_unit": "native AXI data beats; not bytes or width-normalized",
+    "width_bits": 64,
+    "overflow": "unsigned modulo 2^64",
+    "disabled": "zero result snapshot",
+    "snapshot": "same completion edge as ap_done"
+  },
+  "register_offsets": {
+    "status": "0x06C",
+    "processed_rows": "0x07C",
+    "perf_cycles_total": "0x08C",
+    "perf_cycles_compute": "0x0A4",
+    "perf_read_beats": "0x0BC",
+    "perf_write_beats": "0x0D4",
+    "output_crc": "0x0EC",
+    "build_config": "0x0FC"
+  },
+  "verification": {
+    "M05_HLS_CSim": "PASS, 57 checks",
+    "M05_host_CRC_tests": "PASS",
+    "M05_HLS_CSynth": "PASS, 10 ns target; HLS estimate does not include added generic counter RTL",
+    "generic_perf_counter_xsim": "PASS",
+    "Vivado_IP_packaging": "see packaging_run.txt and build-review completion report"
+  },
+  "rtl_sha256": {
+    "embedding_v2.v": "bc8da98bc4a7c2d5f1cd694c492e19ebdc4b3ed3b8f610df01a5932f2f74ac96",
+    "embedding_v2_ctrl_s_axi.v": "01e9cc00844e61dff4db0f8fe86e8629de6bea7d6d8ba8464d1e8b47d5f5b795",
+    "embedding_v2_entry_proc.v": "58e92d235a5c62a5f156f87fcfba24976dd290af7a6170a2bc57e66010ae9bab",
+    "embedding_v2_fifo_w128_d64_A.v": "5e88257082a31869ef333d13ea49216beed563d8d8482f587d45ece8ab7587a5",
+    "embedding_v2_fifo_w1_d3_S.v": "6d7671c54bd1b1860e9758f37b70d4cf97cfc03b28145e73902dc337f4d4adee",
+    "embedding_v2_fifo_w33_d64_A.v": "08bbb74c00261d186839d2661782c93d68acb4a699d140a0084d8e6e2e1262e4",
+    "embedding_v2_fifo_w64_d2_S.v": "7d03915eb4d695821bc1c8a87dfc1d45fdec7528410ee169be4a3d52b95ab978",
+    "embedding_v2_fifo_w64_d3_S.v": "afab5cbce22cf7928c5a0e7a4799367933b27ec239bc563322a2b99e4b4c9f1c",
+    "embedding_v2_flow_control_loop_pipe_sequential_init.v": "feeb0d9f1d433ea0c41c6e615ccc751175190dd22da29f961b617d407df6fc15",
+    "embedding_v2_ids_m_axi.v": "7ad358a47f3fb265faab3a2f7cd7a0183aeec81d3eed11f9beb3b2325e44c03e",
+    "embedding_v2_out_r_m_axi.v": "debb0e7d290a76f2c6bab2386ae716eff2a758b463f8a571e08b2beecb1a6364",
+    "embedding_v2_p_anonymous_namespace_read_and_check_ids.v": "76dfb93fa9084fa8a9d4659cecba3bdb9625130e202a6f51f3b11321d3911010",
+    "embedding_v2_p_anonymous_namespace_read_and_check_ids_Pipeline_CHECK_IDS.v": "64e48a2a8d5d21745a67aba3873e5e965cb58c94ddadef262d28cf12908c19a2",
+    "embedding_v2_p_anonymous_namespace_read_embedding_rows.v": "e802620ed9ebf6108f37489e890512ce6cbd84c41e0c807c79731d200c967ac2",
+    "embedding_v2_p_anonymous_namespace_read_embedding_rows_Pipeline_READ_ROW.v": "b97043fff4ad7dbfe066520989877d51940f7c141b20c78f499dc432c7eb6da4",
+    "embedding_v2_p_anonymous_namespace_run_embedding_dataflow.v": "30fe5b8458f6b6ca1ebb3dbd7b88b016e4e6fd48f3bca86411974f854d7e6730",
+    "embedding_v2_p_anonymous_namespace_write_embedding_rows.v": "baa2ed75ea859098c0d54e4e5206e90e838d5900cce457b304c2904a60e568b2",
+    "embedding_v2_p_anonymous_namespace_write_embedding_rows_Pipeline_WRITE_ROW.v": "16d973e8e3c3449a254dd73913c6db569eaa75d72f5a0cd01e36303a35fad2ad",
+    "embedding_v2_weight_m_axi.v": "629a3921b73aaae0cc1d53d51915a6d9abc8814f1b686a3dd25b1887adb3c929",
+    "m05_embedding_v2_ip.v": "497ae8e923b52a01221c942ff1df7009b3bbbe66c560ce812727ca15c88a3e8c"
+  },
+  "hls_source_sha256": {
+    "hls/m05_embedding_v2_verified/embedding_v2.cpp": "e42205171b784b0a7051ab71543052b43f2d74b760d053d02f48761c0e752ed0",
+    "hls/m05_embedding_v2_verified/include/m05_crc32.h": "1b1767397559463d7a87d422e63f6a6461e40a9493524283cee6c86282c6f9de",
+    "hls/m05_embedding_v2_verified/include/m05_build_config.h": "2855d9a4b3bea22889cbc652fa42827555a4787ee57b75176bdf3efdaa060c00",
+    "hls/common/pspl_v2_axi_perf_counters.v": "240c20ad362ad228c9d7b2bbbaea2a97478165222fcfbfea746d8bcc0310219b"
+  }
+}

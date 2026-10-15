@@ -1,0 +1,83 @@
+{
+  "module_id": "M05",
+  "name": "Token Embedding",
+  "version": "V2 optimized packaging 2.1",
+  "delivery_date": "2026-10-10",
+  "delivery_status": "integration_candidate_with_documented_gaps",
+  "abi_version": 2,
+  "build_config": "0x20010011",
+  "module_revision": 2,
+  "vlnv": "llm-fpga.local:user:m05_embedding_v2:2.1",
+  "layouts": {
+    "token_ids": {
+      "dtype": "U32",
+      "layout": "TOKEN_U32_V2",
+      "min_bytes": "4*T",
+      "access": "read"
+    },
+    "table": {
+      "dtype": "BF16",
+      "layout": "VOCAB_VH_V2",
+      "min_bytes": 272269312,
+      "access": "read"
+    },
+    "hidden_out": {
+      "dtype": "BF16",
+      "layout": "ACT_TH_V2",
+      "min_bytes": "1792*T",
+      "access": "write"
+    }
+  },
+  "ports": {
+    "m_axi_ids": {
+      "bundle": "ids",
+      "data_bits": 32,
+      "address_bits": 64
+    },
+    "m_axi_weight": {
+      "bundle": "weight",
+      "data_bits": 128,
+      "address_bits": 64
+    },
+    "m_axi_out_r": {
+      "bundle": "out",
+      "data_bits": 128,
+      "address_bits": 64
+    },
+    "s_axi_ctrl": {
+      "bundle": "ctrl",
+      "data_bits": 32,
+      "address_bits": 9
+    }
+  },
+  "tools": {
+    "Vitis_HLS": "2021.1",
+    "Vivado": "2021.1",
+    "Vitis_IDE": "2021.1"
+  },
+  "target_clock_ns": 10,
+  "hls_latency": "data-dependent; see reports/hls/sim",
+  "hls_II": "read/write payload loops II=1; ID check loop II=10; see reports",
+  "implemented_resources_scope": "PS+M05+SmartConnect board; placed utilization report, routed timing report",
+  "implemented_WNS_ns": 3.726,
+  "implemented_WHS_ns": 0.01,
+  "resources_report": "reports/implementation/impl_1/system_wrapper_utilization_placed.rpt",
+  "module_synthesis_resources_report": "reports/implementation/system_m05_0_synth_1/system_m05_0_utilization_synth.rpt",
+  "golden_sha256": "e6627f361d8f26cfb734fd957b5d62695c7235b223c7832215d6254be94aedbf",
+  "component_sha256": "45d4bcfb99e3ec131f0b0a6c1e153b3a1ce99d04b9681eaaffcd7b51839095da",
+  "known_limits": "KNOWN_ISSUES.md",
+  "capabilities_bitmap": null,
+  "validated": [
+    "38 C checks",
+    "12 HLS RTL cases",
+    "8 counter unit +13 integration cases",
+    "11 single-IP board cases",
+    "700 optimized board benchmark samples"
+  ],
+  "sequential_delivery": "results only; no sequential sources/IP/project",
+  "packaging_does_not_rerun_hardware_tests": true,
+  "LUT": 10167,
+  "FF": 14975,
+  "BRAM_tiles": 4.5,
+  "DSP": 0
+}

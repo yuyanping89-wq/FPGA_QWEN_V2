@@ -1,0 +1,18 @@
+{
+  "module": "m10",
+  "vlnv": "xilinx.com:hls:attention_v2_hls:2.0",
+  "core_revision": 2026101302,
+  "flags_mask": "0xB",
+  "axi_native_bits": 128,
+  "clock_ns": 10,
+  "hls_area_estimate": {
+    "BRAM_18K": 72,
+    "DSP": 50,
+    "FF": 13451,
+    "LUT": 19785,
+    "URAM": 0
+  },
+  "source_project": "D:\\FPGA_PRO\\FPGA_QWEN\\build-hls\\qwen_full_v2_resource_fit_20261013\\m10",
+  "performance": "Measured RTL cycles and AXI VALID&&READY data beats; unknown compute-active cycles=0.",
+  "crc": "IEEE CRC32, logical BF16 output bytes, low byte first."
+}

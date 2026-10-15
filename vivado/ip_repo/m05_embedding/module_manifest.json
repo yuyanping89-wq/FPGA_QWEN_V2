@@ -1,0 +1,51 @@
+{
+  "schema": "pspl-abi-v2-delivery-module-v1",
+  "module": "M05 token embedding",
+  "package_path": "vivado/ip_repo/m05_embedding",
+  "vlnv": "llm-fpga.local:user:m05_embedding_v2:2.1",
+  "rtl_top": "m05_embedding_v2_ip",
+  "hls_top": "embedding_v2",
+  "build_config": "0x30010011",
+  "abi_version": 2,
+  "target_part": "xczu9eg-ffvb1156-2-i",
+  "clock_period_ns": 10,
+  "interfaces": {
+    "s_axi_ctrl": {
+      "mode": "slave",
+      "protocol": "AXI4-Lite",
+      "address_width": 9,
+      "data_width": 32
+    },
+    "m_axi_ids": {
+      "mode": "master",
+      "protocol": "AXI4",
+      "address_width": 64,
+      "data_width": 32
+    },
+    "m_axi_weight": {
+      "mode": "master",
+      "protocol": "AXI4",
+      "address_width": 64,
+      "data_width": 128
+    },
+    "m_axi_out_r": {
+      "mode": "master",
+      "protocol": "AXI4",
+      "address_width": 64,
+      "data_width": 128
+    }
+  },
+  "register_offsets": {
+    "status": "0x06C",
+    "processed_rows": "0x07C",
+    "perf_cycles_total": "0x08C",
+    "perf_cycles_compute": "0x0A4",
+    "perf_read_beats": "0x0BC",
+    "perf_write_beats": "0x0D4",
+    "output_crc": "0x0EC",
+    "build_config": "0x0FC"
+  },
+  "supported_flags_mask": "0x0000000B",
+  "package_state": "packaging and catalog checks are recorded in packaging_run.txt and the completion report",
+  "verification_scope": "See build-review/v2_crc_perf_completion_20261012.md"
+}

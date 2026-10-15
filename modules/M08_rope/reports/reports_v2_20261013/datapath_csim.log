@@ -1,0 +1,8 @@
+INFO: [SIM 2] *************** CSIM start ***************
+INFO: [SIM 4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../../../module_raw/qwen25_jxp_1012/v2_datapath_cosim_tb.cpp in release mode
+   Compiling ../../../../../../module_raw/qwen25_jxp_1012/rope.cpp in release mode
+   Generating csim.exe
+V2_DATAPATH_COSIM_TB_PASS failures=0
+INFO: [SIM 1] CSim done with 0 errors.
+INFO: [SIM 3] *************** CSIM finish ***************

@@ -1,0 +1,315 @@
+/* AXU9EGB / Vitis 2021.1 / standalone A53 64-bit.
+ * Replace Hello World's main with this file; retain platform.c/platform.h.
+ * Uses the full logical table layout, with reference data in selected rows.
+ * No floating point computation: M05 must preserve each BF16 bit pattern.
+ */
+#include <stdint.h>
+#include <stddef.h>
+#include <string.h>
+#include "platform.h"
+#include "xparameters.h"
+#include "xil_io.h"
+#include "xil_cache.h"
+#include "xil_printf.h"
+#include "xtime_l.h"
+#include "xembedding_v2_hw.h"
+
+#ifndef XPAR_M05_BASEADDR
+#error "Use the m05_board_v21 hardware platform (XPAR_M05_BASEADDR missing)."
+#endif
+
+#define VOCAB 151936U
+#define HIDDEN 896U
+#define MAX_ROWS 64U
+#define WORDS_PER_ROW 112U
+#define GUARD_HALFWORDS 32U
+#define SENTINEL 0xA55AU
+#define EXPECTED_BUILD 0x20010011U
+#define JOB_TIMEOUT_SECONDS 5U
+#define REG(name) XEMBEDDING_V2_CTRL_ADDR_##name
+
+/* .bss/NOLOAD: linker reserves these buffers without storing 260 MiB in ELF.
+ * The existing linker maps .bss to DDR_LOW and excludes PMU reserved memory.
+ * All three buffers are disjoint and cache-line aligned; no malloc required.
+ */
+static uint16_t table[VOCAB][HIDDEN] __attribute__((aligned(64)));
+static uint32_t token_ids[MAX_ROWS] __attribute__((aligned(64)));
+static uint16_t output_storage[GUARD_HALFWORDS + MAX_ROWS * HIDDEN +
+                               GUARD_HALFWORDS] __attribute__((aligned(64)));
+static const uint32_t selected_ids[] = {0U, 1U, 2U, 17U, 1024U,
+                                      65535U, 65536U, VOCAB - 1U};
+static uint32_t next_job = 1U;
+static unsigned passed;
+
+typedef struct {
+    uint32_t status, rows, crc, build;
+    uint64_t total, active, reads, writes;
+} result_t;
+
+static void barrier(void) { __asm__ volatile("dsb sy" ::: "memory"); }
+static uint32_t rd(uint32_t offset)
+{
+    return Xil_In32((UINTPTR)XPAR_M05_BASEADDR + offset);
+}
+static void wr(uint32_t offset, uint32_t value)
+{
+    if (next_job <= 2U)
+        xil_printf("[TRACE] write reg=0x%03x value=0x%08x begin\r\n",
+                   (unsigned)offset, (unsigned)value);
+    Xil_Out32((UINTPTR)XPAR_M05_BASEADDR + offset, value);
+    barrier();
+    if (next_job <= 2U)
+        xil_printf("[TRACE] write reg=0x%03x complete\r\n", (unsigned)offset);
+}
+static void wr64(uint32_t offset, uint64_t value)
+{
+    wr(offset, (uint32_t)value);
+    wr(offset + 4U, (uint32_t)(value >> 32));
+}
+/* Read only after done, before another start: snapshot is stable. */
+static uint64_t rd64(uint32_t offset)
+{
+    uint64_t low = rd(offset);
+    return low | ((uint64_t)rd(offset + 4U) << 32);
+}
+static void print64(const char *label, uint64_t value)
+{
+    /* xil_printf does not reliably support %llu; print both 32-bit halves. */
+    xil_printf(" %s=0x%08x%08x", label,
+               (unsigned)(value >> 32), (unsigned)value);
+}
+static void print_addr(const char *label, const void *ptr)
+{
+    print64(label, (uint64_t)(UINTPTR)ptr);
+}
+
+static uint16_t reference(uint32_t id, uint32_t column)
+{
+    /* Unsigned wrap is intentional. Mix both halves of the token ID. */
+    uint32_t x = id * 0x9E3779B9U + column * 0x85EBCA6BU + 0x1234567U;
+    x ^= x >> 16;
+    return (uint16_t)x;
+}
+
+static int valid_ddr_buffer(const void *ptr, size_t size)
+{
+    uint64_t start = (uint64_t)(UINTPTR)ptr;
+    return (start & 63U) == 0U && size != 0U &&
+           start < 0x7FF00000ULL && size <= 0x7FF00000ULL - start;
+}
+
+static void prepare_table(void)
+{
+    unsigned i;
+    for (i = 0U; i < sizeof(selected_ids) / sizeof(selected_ids[0]); ++i) {
+        uint32_t id = selected_ids[i], c;
+        for (c = 0U; c < HIDDEN; ++c) table[id][c] = reference(id, c);
+        Xil_DCacheFlushRange((INTPTR)&table[id][0], HIDDEN * sizeof(uint16_t));
+    }
+    barrier();
+}
+
+static void reset_output(void)
+{
+    unsigned i;
+    for (i = 0; i < sizeof(output_storage) / sizeof(output_storage[0]); ++i)
+        output_storage[i] = SENTINEL;
+    /* Clean dirty sentinels BEFORE the device writes, so later invalidate
+     * cannot write stale CPU cache lines over the device's output. */
+    Xil_DCacheFlushRange((INTPTR)output_storage, sizeof(output_storage));
+    barrier();
+}
+
+static int invoke(uint32_t mode, uint32_t rows, uint32_t abi,
+                  uint32_t flags, result_t *result)
+{
+    XTime begin, now;
+    uint32_t control, polls = 0U;
+    xil_printf("[TRACE] read AP_CTRL at 0x%08x begin\r\n",
+               (unsigned)XPAR_M05_BASEADDR);
+    control = rd(REG(AP_CTRL)); /* Also clears stale done. */
+    xil_printf("[TRACE] read AP_CTRL complete: 0x%08x\r\n", (unsigned)control);
+    if ((control & 4U) == 0U || (control & 0x81U) != 0U) {
+        xil_printf("[FAIL] M05 not idle / auto_restart enabled: ctrl=0x%08x\r\n",
+                   (unsigned)control);
+        return 0;
+    }
+    xil_printf("[TRACE] flush token_ids begin\r\n");
+    Xil_DCacheFlushRange((INTPTR)token_ids, sizeof(token_ids));
+    barrier();
+    xil_printf("[TRACE] flush token_ids complete; configure registers\r\n");
+    wr(REG(GIE), 0U);
+    wr(REG(IER), 0U);
+    wr64(REG(TOKEN_IDS_DATA), (uint64_t)(UINTPTR)token_ids);
+    wr64(REG(TABLE_R_DATA), (uint64_t)(UINTPTR)table);
+    wr64(REG(HIDDEN_OUT_DATA),
+         (uint64_t)(UINTPTR)&output_storage[GUARD_HALFWORDS]);
+    wr(REG(RUN_MODE_DATA), mode);
+    wr(REG(VALID_ROWS_DATA), rows);
+    wr(REG(HIDDEN_SIZE_DATA), HIDDEN);
+    wr(REG(VOCAB_SIZE_DATA), VOCAB);
+    wr(REG(ABI_VERSION_DATA), abi);
+    wr(REG(JOB_ID_DATA), next_job++);
+    wr(REG(FLAGS_DATA), flags);
+    barrier();
+    xil_printf("[TRACE] registers configured; read timer\r\n");
+    XTime_GetTime(&begin);
+    xil_printf("[TRACE] timer read complete; start M05\r\n");
+    wr(REG(AP_CTRL), 1U); /* Single job, auto_restart=0. */
+    xil_printf("[TRACE] start write complete; poll done\r\n");
+    for (;;) {
+        control = rd(REG(AP_CTRL));
+        if (control & 2U) break;
+        XTime_GetTime(&now);
+        ++polls;
+        if (now - begin > (uint64_t)COUNTS_PER_SECOND * JOB_TIMEOUT_SECONDS) {
+            xil_printf("[FAIL] M05 completion timeout, ctrl=0x%08x. Stop; reset/relaunch before retry.\r\n",
+                       (unsigned)control);
+            return 0;
+        }
+        if (polls == 1000000U) {
+            xil_printf("[FAIL] polling limit reached: ctrl=0x%08x. Stop/reset before retry.\r\n",
+                       (unsigned)control);
+            return 0;
+        }
+    }
+    xil_printf("[TRACE] done received; read result registers\r\n");
+    barrier();
+    result->status = rd(REG(RESULT_STATUS_CODE_DATA));
+    result->rows = rd(REG(RESULT_PROCESSED_ROWS_DATA));
+    result->total = rd64(REG(RESULT_PERF_CYCLES_TOTAL_DATA));
+    result->active = rd64(REG(RESULT_PERF_CYCLES_COMPUTE_DATA));
+    result->reads = rd64(REG(RESULT_PERF_READ_BEATS_DATA));
+    result->writes = rd64(REG(RESULT_PERF_WRITE_BEATS_DATA));
+    result->crc = rd(REG(RESULT_OUTPUT_CRC_DATA));
+    result->build = rd(REG(RESULT_BUILD_CONFIG_DATA));
+    Xil_DCacheInvalidateRange((INTPTR)output_storage, sizeof(output_storage));
+    barrier();
+    return 1;
+}
+
+static int check_output(uint32_t copied_rows)
+{
+    unsigned i;
+    for (i = 0; i < sizeof(output_storage) / sizeof(output_storage[0]); ++i) {
+        uint16_t expected = SENTINEL;
+        if (i >= GUARD_HALFWORDS && i < GUARD_HALFWORDS + copied_rows * HIDDEN) {
+            uint32_t n = i - GUARD_HALFWORDS;
+            expected = reference(token_ids[n / HIDDEN], n % HIDDEN);
+        }
+        if (output_storage[i] != expected) {
+            xil_printf("[FAIL] output halfword %u: actual=0x%04x expected=0x%04x\r\n",
+                       i, (unsigned)output_storage[i], (unsigned)expected);
+            return 0;
+        }
+    }
+    return 1;
+}
+
+static int run_case(const char *name, uint32_t mode, uint32_t rows,
+                    uint32_t abi, uint32_t flags, uint32_t expected_status,
+                    uint32_t copied_rows)
+{
+    result_t r;
+    uint32_t saved_ids[MAX_ROWS];
+    uint64_t weight_beats = (uint64_t)copied_rows * WORDS_PER_ROW;
+    memcpy(saved_ids, token_ids, sizeof(saved_ids));
+    xil_printf("[RUN] %s\r\n", name);
+    xil_printf("[TRACE] initialize/flush output begin\r\n");
+    reset_output();
+    xil_printf("[TRACE] initialize/flush output complete\r\n");
+    if (!invoke(mode, rows, abi, flags, &r)) return 0;
+    xil_printf("[INFO] status=%u rows=%u build=0x%08x",
+               (unsigned)r.status, (unsigned)r.rows, (unsigned)r.build);
+    print64("total", r.total); print64("active", r.active);
+    print64("reads", r.reads); print64("writes", r.writes);
+    xil_printf("\r\n");
+    if (r.status != expected_status || r.rows != copied_rows ||
+        r.build != EXPECTED_BUILD || r.crc != 0U || r.total == 0U ||
+        r.active > r.total || r.writes != weight_beats) {
+        xil_printf("[FAIL] status / row count / build / counters mismatch\r\n");
+        return 0;
+    }
+    if (expected_status == 0U) {
+        if (r.reads != weight_beats + rows || r.active == 0U) {
+            xil_printf("[FAIL] successful job read/active counter mismatch\r\n");
+            return 0;
+        }
+    } else if (expected_status == 7U) {
+        /* HLS can prefetch IDs in a burst beyond the rejected token. */
+        if (r.reads < weight_beats + copied_rows + 1U ||
+            r.reads > weight_beats + rows) {
+            xil_printf("[FAIL] invalid-token job read counter outside allowed range\r\n");
+            return 0;
+        }
+    } else if (r.reads != 0U || r.active != 0U) {
+        xil_printf("[FAIL] rejected job performed payload traffic\r\n");
+        return 0;
+    }
+    if (!check_output(copied_rows)) return 0;
+    Xil_DCacheInvalidateRange((INTPTR)token_ids, sizeof(token_ids));
+    barrier();
+    if (memcmp(saved_ids, token_ids, sizeof(saved_ids)) != 0) {
+        xil_printf("[FAIL] token_ids changed\r\n"); return 0;
+    }
+    ++passed;
+    xil_printf("[PASS] %s\r\n", name);
+    return 1;
+}
+
+int main(void)
+{
+    unsigned i, c;
+    init_platform();
+    XTime_StartTimer();
+    xil_printf("\r\nM05 BOARD TEST V1.1 TRACE: AXU9EGB, ABI 2, wrapper 2.1\r\n");
+    xil_printf("[INFO] Full table payload=%u bytes; selected rows initialized.\r\n",
+               (unsigned)sizeof(table));
+    print_addr("table", table); print_addr("ids", token_ids);
+    print_addr("out", &output_storage[GUARD_HALFWORDS]);
+    xil_printf("\r\n");
+    if (!valid_ddr_buffer(table, sizeof(table)) ||
+        !valid_ddr_buffer(token_ids, sizeof(token_ids)) ||
+        !valid_ddr_buffer(output_storage, sizeof(output_storage))) {
+        xil_printf("[FAIL] buffers not aligned/in DDR_LOW usable range\r\n");
+        goto failed;
+    }
+    prepare_table();
+    token_ids[0] = 0U;
+    if (!run_case("prefill T=1 first token", 0, 1, 2, 0, 0, 1)) goto failed;
+    token_ids[0] = VOCAB - 1U;
+    if (!run_case("decode T=1 last token", 1, 1, 2, 0, 0, 1)) goto failed;
+    for (i = 0; i < MAX_ROWS; ++i)
+        token_ids[i] = selected_ids[(i * 3U) % 8U];
+    if (!run_case("prefill T=64 boundaries and repeats", 0, 64, 2, 0, 0, 64)) goto failed;
+    for (i = 0; i < MAX_ROWS; ++i) token_ids[i] = 17U;
+    if (!run_case("prefill T=64 repeated token", 0, 64, 2, 0, 0, 64)) goto failed;
+    token_ids[0] = 1U; token_ids[1] = VOCAB; token_ids[2] = 2U;
+    if (!run_case("bad middle token valid prefix=1", 0, 3, 2, 0, 7, 1)) goto failed;
+    token_ids[0] = 2U;
+    if (!run_case("decode recovery after bad token", 1, 1, 2, 0, 0, 1)) goto failed;
+    if (!run_case("bad ABI", 0, 1, 1, 0, 1, 0)) goto failed;
+    if (!run_case("decode rejects T=2", 1, 2, 2, 0, 2, 0)) goto failed;
+    if (!run_case("bad row count 65", 0, 65, 2, 0, 2, 0)) goto failed;
+    if (!run_case("unsupported flags", 0, 1, 2, 1, 11, 0)) goto failed;
+    token_ids[0] = VOCAB - 1U;
+    if (!run_case("final decode recovery", 1, 1, 2, 0, 0, 1)) goto failed;
+    for (i = 0; i < 8U; ++i) {
+        uint32_t id = selected_ids[i];
+        Xil_DCacheInvalidateRange((INTPTR)&table[id][0], HIDDEN * sizeof(uint16_t));
+        barrier();
+        for (c = 0; c < HIDDEN; ++c) {
+            if (table[id][c] != reference(id, c)) {
+                xil_printf("[FAIL] source table row %u column %u changed\r\n", id, c);
+                goto failed;
+            }
+        }
+    }
+    xil_printf("ALL %u M05 BOARD CASES PASSED; selected table rows unchanged.\r\n", passed);
+    cleanup_platform();
+    return 0;
+failed:
+    xil_printf("M05 BOARD TEST FAILED after %u passed cases. Stop and save serial log.\r\n", passed);
+    cleanup_platform();
+    return 1;
+}

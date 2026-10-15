@@ -1,0 +1,132 @@
+
+
+================================================================
+== Synthesis Summary Report of 'embedding_v2'
+================================================================
++ General Information: 
+    * Date:           Thu Oct  8 17:17:42 2026
+    * Version:        2021.1 (Build 3247384 on Thu Jun 10 19:36:33 MDT 2021)
+    * Project:        embedding_v2_csim
+    * Solution:       solution1 (Vivado IP Flow Target)
+    * Product family: zynquplus
+    * Target device:  xczu9eg-ffvb1156-2-i
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +-------------------------------------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+----------+----+------------+------------+-----+
+    |                                    Modules                                    |  Issue |       | Latency |  Latency  | Iteration|         | Trip |          |          |    |            |            |     |
+    |                                    & Loops                                    |  Type  | Slack | (cycles)|    (ns)   |  Latency | Interval| Count| Pipelined|   BRAM   | DSP|     FF     |     LUT    | URAM|
+    +-------------------------------------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+----------+----+------------+------------+-----+
+    |+ embedding_v2                                                                 |  Timing|  -0.00|        -|          -|         -|        -|     -|        no|   46 (2%)|   -|  4530 (~0%)|   5935 (2%)|    -|
+    | + grp_p_anonymous_namespace_run_embedding_dataflow_fu_287*                    |  Timing|  -0.00|        -|          -|         -|        -|     -|  dataflow|  10 (~0%)|   -|  1545 (~0%)|  1785 (~0%)|    -|
+    |  + grp_p_anonymous_namespace_read_and_check_ids_fu_104                        |  Timing|  -0.00|        -|          -|         -|        -|     -|        no|         -|   -|   245 (~0%)|   430 (~0%)|    -|
+    |   + grp_p_anonymous_namespace_read_and_check_ids_Pipeline_CHECK_IDS_fu_80     |  Timing|  -0.00|        -|          -|         -|        -|     -|        no|         -|   -|   176 (~0%)|   315 (~0%)|    -|
+    |    o CHECK_IDS                                                                |      II|   7.30|        -|          -|        11|       10|     -|       yes|         -|   -|           -|           -|    -|
+    |  + call_ret_entry_proc_fu_115                                                 |       -|   7.30|        0|      0.000|         -|        0|     -|        no|         -|   -|   130 (~0%)|    29 (~0%)|    -|
+    |  + grp_p_anonymous_namespace_read_embedding_rows_fu_123                       |  Timing|  -0.00|        -|          -|         -|        -|     -|        no|         -|   -|   214 (~0%)|   459 (~0%)|    -|
+    |   + grp_p_anonymous_namespace_read_embedding_rows_Pipeline_READ_ROW_fu_101    |  Timing|  -0.00|      115|  1.150e+03|         -|      115|     -|        no|         -|   -|   141 (~0%)|    84 (~0%)|    -|
+    |    o READ_ROW                                                                 |       -|   7.30|      113|  1.130e+03|         3|        1|   112|       yes|         -|   -|           -|           -|    -|
+    |   o READ_TASKS                                                                |       -|   7.30|        -|          -|       125|        -|     -|        no|         -|   -|           -|           -|    -|
+    |  + grp_p_anonymous_namespace_write_embedding_rows_fu_132                      |  Timing|  -0.00|        -|          -|         -|        -|     -|        no|         -|   -|   443 (~0%)|   564 (~0%)|    -|
+    |   + grp_p_anonymous_namespace_write_embedding_rows_Pipeline_WRITE_ROW_fu_103  |  Timing|  -0.00|      120|  1.200e+03|         -|      120|     -|        no|         -|   -|   280 (~0%)|   173 (~0%)|    -|
+    |    o WRITE_ROW                                                                |       -|   7.30|      118|  1.180e+03|         8|        1|   112|       yes|         -|   -|           -|           -|    -|
+    |   o WRITE_TASKS                                                               |       -|   7.30|        -|          -|       124|        -|     -|        no|         -|   -|           -|           -|    -|
+    +-------------------------------------------------------------------------------+--------+-------+---------+-----------+----------+---------+------+----------+----------+----+------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* M_AXI
++--------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| Interface    | Data Width | Address Width | Latency | Offset | Register | Max Widen | Max Read     | Max Write    | Num Read    | Num Write   |
+|              | (SW->HW)   |               |         |        |          | Bitwidth  | Burst Length | Burst Length | Outstanding | Outstanding |
++--------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+| m_axi_ids    | 32 -> 32   | 64            | 0       | slave  | 0        | 0         | 16           | 16           | 1           | 16          |
+| m_axi_out_r  | 128 -> 128 | 64            | 0       | slave  | 0        | 0         | 16           | 64           | 16          | 1           |
+| m_axi_weight | 128 -> 128 | 64            | 0       | slave  | 0        | 0         | 64           | 16           | 1           | 16          |
++--------------+------------+---------------+---------+--------+----------+-----------+--------------+--------------+-------------+-------------+
+
+* S_AXILITE
++------------+------------+---------------+--------+----------+
+| Interface  | Data Width | Address Width | Offset | Register |
++------------+------------+---------------+--------+----------+
+| s_axi_ctrl | 32         | 9             | 16     | 0        |
++------------+------------+---------------+--------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------+
+| Interface | Type       | Ports     |
++-----------+------------+-----------+
+| ap_clk    | clock      | ap_clk    |
+| ap_rst_n  | reset      | ap_rst_n  |
+| interrupt | interrupt  | interrupt |
+| ap_ctrl   | ap_ctrl_hs |           |
++-----------+------------+-----------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++-------------+-----------+----------------------+
+| Argument    | Direction | Datatype             |
++-------------+-----------+----------------------+
+| token_ids   | in        | unsigned int const * |
+| table       | in        | ap_uint<128> const * |
+| hidden_out  | out       | ap_uint<128>*        |
+| run_mode    | in        | unsigned int         |
+| valid_rows  | in        | unsigned int         |
+| hidden_size | in        | unsigned int         |
+| vocab_size  | in        | unsigned int         |
+| abi_version | in        | unsigned int         |
+| job_id      | in        | unsigned int         |
+| flags       | in        | unsigned int         |
+| result      | out       | common_result_v2*    |
++-------------+-----------+----------------------+
+
+* SW-to-HW Mapping
++-------------+-------------------------+-----------+----------+-----------------------+
+| Argument    | HW Name                 | HW Type   | HW Usage | HW Info               |
++-------------+-------------------------+-----------+----------+-----------------------+
+| token_ids   | m_axi_ids               | interface |          |                       |
+| token_ids   | s_axi_ctrl token_ids_1  | register  | offset   | offset=0x10, range=32 |
+| token_ids   | s_axi_ctrl token_ids_2  | register  | offset   | offset=0x14, range=32 |
+| table       | m_axi_weight            | interface |          |                       |
+| table       | s_axi_ctrl table_r_1    | register  | offset   | offset=0x1c, range=32 |
+| table       | s_axi_ctrl table_r_2    | register  | offset   | offset=0x20, range=32 |
+| hidden_out  | m_axi_out_r             | interface |          |                       |
+| hidden_out  | s_axi_ctrl hidden_out_1 | register  | offset   | offset=0x28, range=32 |
+| hidden_out  | s_axi_ctrl hidden_out_2 | register  | offset   | offset=0x2c, range=32 |
+| run_mode    | s_axi_ctrl run_mode     | register  |          | offset=0x34, range=32 |
+| valid_rows  | s_axi_ctrl valid_rows   | register  |          | offset=0x3c, range=32 |
+| hidden_size | s_axi_ctrl hidden_size  | register  |          | offset=0x44, range=32 |
+| vocab_size  | s_axi_ctrl vocab_size   | register  |          | offset=0x4c, range=32 |
+| abi_version | s_axi_ctrl abi_version  | register  |          | offset=0x54, range=32 |
+| job_id      | s_axi_ctrl job_id       | register  |          | offset=0x5c, range=32 |
+| flags       | s_axi_ctrl flags        | register  |          | offset=0x64, range=32 |
+| result      | s_axi_ctrl              | interface |          |                       |
+| result      | s_axi_ctrl              | interface |          |                       |
+| result      | s_axi_ctrl              | interface |          |                       |
+| result      | s_axi_ctrl              | interface |          |                       |
+| result      | s_axi_ctrl              | interface |          |                       |
+| result      | s_axi_ctrl              | interface |          |                       |
+| result      | s_axi_ctrl              | interface |          |                       |
+| result      | s_axi_ctrl              | interface |          |                       |
++-------------+-------------------------+-----------+----------+-----------------------+
+
+
+================================================================
+== M_AXI Burst Information
+================================================================
+* Burst Summary
++--------------+-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------+
+| HW Interface | Loop      | Message                                                                                                                                                                                                                    | Location                  |
++--------------+-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------+
+| m_axi_weight | READ_ROW  | Multiple burst reads of length 112 and bit width 128. These bursts requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings.  | ../embedding_v2.cpp:69:9  |
+| m_axi_out    | WRITE_ROW | Multiple burst writes of length 112 and bit width 128. These bursts requests might be further partitioned into multiple requests during RTL generation, based on max_read_burst_length or max_write_burst_length settings. | ../embedding_v2.cpp:100:9 |
++--------------+-----------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------+
+
+

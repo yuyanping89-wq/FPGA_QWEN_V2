@@ -1,0 +1,1 @@
+The copied test_marvell.py is a BSP-dependent compile test. It needs Xilinx lwIP/EMAC headers such as xemac_ieee_reg.h from a generated BSP and cannot run from this source-only release by itself. Run it only after configuring the Vitis workspace and supplying the BSP headers.

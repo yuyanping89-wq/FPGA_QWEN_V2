@@ -1,0 +1,93 @@
+{
+  "schema": "m05-local-perf-profile-v1",
+  "module": "M05 Token Embedding with actual RTL counters",
+  "top_function": "embedding_v2",
+  "abi_version": 2,
+  "hls_core_build_config_hex": "0x10010011",
+  "build_config_hex": "0x20010011",
+  "module_revision": 2,
+  "encoding_status": "document_suggested_mapping_pending_project_freeze",
+  "validation_status": "implementation_pending_user_rtl_validation",
+  "performance_counters_implemented": true,
+  "counter_layer": "post_hls_rtl_instrumentation",
+  "supported_flags_mask": 0,
+  "counter_enable": "always_on_in_instrumented_rtl",
+  "total_cycle_window": "accepted_start_to_ap_done_inclusive_rising_edges",
+  "compute_cycle_definition": "cycles_with_any_ids_R_or_weight_R_or_output_W_handshake",
+  "read_beats_definition": "ids_R_handshakes_plus_weight_R_handshakes",
+  "write_beats_definition": "output_W_handshakes",
+  "counter_bits": 64,
+  "overflow": "unsigned_modulo_2_to_the_64",
+  "snapshot": "same_clock_edge_as_ap_done_latched_by_control_registers",
+  "read_protocol": "wait_done_then_read_all_results_before_next_start_no_auto_restart",
+  "job_id": "latched_in_monitor_for_debug_PS_retains_job_id_until_result_read",
+  "target_clock_ns": 10,
+  "ids_data_bits": 32,
+  "table_and_output_data_bits": 128,
+  "counter_registers": {
+    "perf_cycles_total": {
+      "low": "0x08c",
+      "high": "0x090"
+    },
+    "perf_cycles_compute": {
+      "low": "0x0a4",
+      "high": "0x0a8"
+    },
+    "perf_read_beats": {
+      "low": "0x0bc",
+      "high": "0x0c0"
+    },
+    "perf_write_beats": {
+      "low": "0x0d4",
+      "high": "0x0d8"
+    }
+  },
+  "prepared_at_utc": "2026-10-08T09:51:03.199651+00:00",
+  "input_rtl_sha256": {
+    "embedding_v2.v": "b6fc7e678e5304e5bcbfc10ed350588f8673f23654d7425b82cb502eaa48be79",
+    "embedding_v2_ctrl_s_axi.v": "01e9cc00844e61dff4db0f8fe86e8629de6bea7d6d8ba8464d1e8b47d5f5b795",
+    "embedding_v2_entry_proc.v": "638463f73498aca90786dc24f28b77e18cb164c3c823ad2c4eb08f1c9d0fefcc",
+    "embedding_v2_fifo_w128_d64_A.v": "5e88257082a31869ef333d13ea49216beed563d8d8482f587d45ece8ab7587a5",
+    "embedding_v2_fifo_w33_d64_A.v": "08bbb74c00261d186839d2661782c93d68acb4a699d140a0084d8e6e2e1262e4",
+    "embedding_v2_fifo_w64_d2_S.v": "7d03915eb4d695821bc1c8a87dfc1d45fdec7528410ee169be4a3d52b95ab978",
+    "embedding_v2_fifo_w64_d3_S.v": "afab5cbce22cf7928c5a0e7a4799367933b27ec239bc563322a2b99e4b4c9f1c",
+    "embedding_v2_flow_control_loop_pipe_sequential_init.v": "feeb0d9f1d433ea0c41c6e615ccc751175190dd22da29f961b617d407df6fc15",
+    "embedding_v2_ids_m_axi.v": "7ad358a47f3fb265faab3a2f7cd7a0183aeec81d3eed11f9beb3b2325e44c03e",
+    "embedding_v2_out_r_m_axi.v": "debb0e7d290a76f2c6bab2386ae716eff2a758b463f8a571e08b2beecb1a6364",
+    "embedding_v2_p_anonymous_namespace_read_and_check_ids.v": "e005fd985d6d85bdb1a2dcbccf12b5ede19d195a749292d82f0f360ce5978040",
+    "embedding_v2_p_anonymous_namespace_read_and_check_ids_Pipeline_CHECK_IDS.v": "18d50c8c85d5099078d79b8f4e2f079454575799653ebd35766adaf19c1ed00e",
+    "embedding_v2_p_anonymous_namespace_read_embedding_rows.v": "4c269b77f193dd5f5850aebb573c71b5677ff7e78582942b2515a75a482b5aa8",
+    "embedding_v2_p_anonymous_namespace_read_embedding_rows_Pipeline_READ_ROW.v": "4fb1951e9240ce09bd03a174b2b97ce50069d934e1458e7aa2d8ff70889ad67c",
+    "embedding_v2_p_anonymous_namespace_run_embedding_dataflow.v": "6060577a6397794910e195041dfc42c28f985e1c9e7eeb65757829153aa014af",
+    "embedding_v2_p_anonymous_namespace_write_embedding_rows.v": "e52f78f57425aee29a5528883029e515ec126eace9c9912892ffb27c0b0122b3",
+    "embedding_v2_p_anonymous_namespace_write_embedding_rows_Pipeline_WRITE_ROW.v": "fd7eb238906a9e2fc9df17a107e3cfbce2660d79bb05d8bb58f833b324c4f7e3",
+    "embedding_v2_weight_m_axi.v": "629a3921b73aaae0cc1d53d51915a6d9abc8814f1b686a3dd25b1887adb3c929"
+  },
+  "output_rtl_sha256": {
+    "embedding_v2.v": "254c33be7b7cabb912ee90fa025c40ab5b6017360704325fbc05b953bf01cee6",
+    "embedding_v2_ctrl_s_axi.v": "01e9cc00844e61dff4db0f8fe86e8629de6bea7d6d8ba8464d1e8b47d5f5b795",
+    "embedding_v2_entry_proc.v": "638463f73498aca90786dc24f28b77e18cb164c3c823ad2c4eb08f1c9d0fefcc",
+    "embedding_v2_fifo_w128_d64_A.v": "5e88257082a31869ef333d13ea49216beed563d8d8482f587d45ece8ab7587a5",
+    "embedding_v2_fifo_w33_d64_A.v": "08bbb74c00261d186839d2661782c93d68acb4a699d140a0084d8e6e2e1262e4",
+    "embedding_v2_fifo_w64_d2_S.v": "7d03915eb4d695821bc1c8a87dfc1d45fdec7528410ee169be4a3d52b95ab978",
+    "embedding_v2_fifo_w64_d3_S.v": "afab5cbce22cf7928c5a0e7a4799367933b27ec239bc563322a2b99e4b4c9f1c",
+    "embedding_v2_flow_control_loop_pipe_sequential_init.v": "feeb0d9f1d433ea0c41c6e615ccc751175190dd22da29f961b617d407df6fc15",
+    "embedding_v2_ids_m_axi.v": "7ad358a47f3fb265faab3a2f7cd7a0183aeec81d3eed11f9beb3b2325e44c03e",
+    "embedding_v2_out_r_m_axi.v": "debb0e7d290a76f2c6bab2386ae716eff2a758b463f8a571e08b2beecb1a6364",
+    "embedding_v2_p_anonymous_namespace_read_and_check_ids.v": "e005fd985d6d85bdb1a2dcbccf12b5ede19d195a749292d82f0f360ce5978040",
+    "embedding_v2_p_anonymous_namespace_read_and_check_ids_Pipeline_CHECK_IDS.v": "18d50c8c85d5099078d79b8f4e2f079454575799653ebd35766adaf19c1ed00e",
+    "embedding_v2_p_anonymous_namespace_read_embedding_rows.v": "4c269b77f193dd5f5850aebb573c71b5677ff7e78582942b2515a75a482b5aa8",
+    "embedding_v2_p_anonymous_namespace_read_embedding_rows_Pipeline_READ_ROW.v": "4fb1951e9240ce09bd03a174b2b97ce50069d934e1458e7aa2d8ff70889ad67c",
+    "embedding_v2_p_anonymous_namespace_run_embedding_dataflow.v": "6060577a6397794910e195041dfc42c28f985e1c9e7eeb65757829153aa014af",
+    "embedding_v2_p_anonymous_namespace_write_embedding_rows.v": "e52f78f57425aee29a5528883029e515ec126eace9c9912892ffb27c0b0122b3",
+    "embedding_v2_p_anonymous_namespace_write_embedding_rows_Pipeline_WRITE_ROW.v": "fd7eb238906a9e2fc9df17a107e3cfbce2660d79bb05d8bb58f833b324c4f7e3",
+    "embedding_v2_weight_m_axi.v": "629a3921b73aaae0cc1d53d51915a6d9abc8814f1b686a3dd25b1887adb3c929",
+    "m05_perf_counters.v": "04c0f4c20ffe2e7de667e72a0e086373d83fbe60d1cfc1a2c8cb80fe505825af"
+  },
+  "hls_source_sha256": {
+    "embedding_v2.cpp": "5ee45c8ba2540521133c1909bb86325860ca399c7ee019a8b1556efe903d93a6",
+    "include/common_result_v2.h": "b6af9902f9c14e369855413dd2ebb6b905c2090863aa7458aad047b0344e8ebc",
+    "include/embedding_v2.h": "61d43ef641c411aafb205d752846233bf9305d5a3ff713ede8c02d11a15d1214",
+    "include/m05_build_config.h": "60e9a984c76356c2a35b653105893161b6a1688205c0555b4e82559d1e96f7cf"
+  }
+}

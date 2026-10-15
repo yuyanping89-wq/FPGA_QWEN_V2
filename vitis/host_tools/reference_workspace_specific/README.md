@@ -1,0 +1,1 @@
+These utility scripts are copied from the original full workspace and use its vitis/vitis_ps_lwip source/test tree. That tree is not part of this compact board release. They are retained for provenance and are not the test entry points for this package.

@@ -1,0 +1,317 @@
+{
+  "module_id": "M05",
+  "module_name": "Token Embedding",
+  "instance_id": "assigned_by_integrator",
+  "abi_version": 2,
+  "build_config": "0x20010011",
+  "vlnv": "llm-fpga.local:user:m05_embedding_v2:2.1",
+  "capabilities_bitmap": null,
+  "identity_probe": "not implemented; project agreement required",
+  "run_mode": {
+    "prefill": 0,
+    "decode": 1
+  },
+  "dimensions": {
+    "hidden_size": 896,
+    "vocab_size": 151936,
+    "max_rows": 64
+  },
+  "flags_supported_mask": 0,
+  "crc": "disabled, always zero",
+  "buffers": {
+    "token_ids": {
+      "dtype": "U32",
+      "layout": "TOKEN_U32_V2",
+      "min_bytes": "4*T",
+      "access": "read"
+    },
+    "table": {
+      "dtype": "BF16",
+      "layout": "VOCAB_VH_V2",
+      "min_bytes": 272269312,
+      "access": "read"
+    },
+    "hidden_out": {
+      "dtype": "BF16",
+      "layout": "ACT_TH_V2",
+      "min_bytes": "1792*T",
+      "access": "write"
+    }
+  },
+  "system_alignment_bytes": 64,
+  "alias": "output must not overlap IDs or table; PS checks ranges",
+  "allocation_owner": "M03/PS; M05 allocates no DDR buffers",
+  "ports": {
+    "m_axi_ids": {
+      "bundle": "ids",
+      "data_bits": 32,
+      "address_bits": 64
+    },
+    "m_axi_weight": {
+      "bundle": "weight",
+      "data_bits": 128,
+      "address_bits": 64
+    },
+    "m_axi_out_r": {
+      "bundle": "out",
+      "data_bits": 128,
+      "address_bits": 64
+    },
+    "s_axi_ctrl": {
+      "bundle": "ctrl",
+      "data_bits": 32,
+      "address_bits": 9
+    }
+  },
+  "board_profile": {
+    "part": "xczu9eg-ffvb1156-2-i",
+    "board": "AXU9EGB",
+    "clock_target_hz": 100000000,
+    "data_route": "3 AXI masters -> SmartConnect -> PS HP0 DDR",
+    "control_base_test": "0xA0000000",
+    "control_base_system": "assigned_by_integrator"
+  },
+  "timeout": "board harness 5s watchdog, not hardware worst-case bound; class not frozen",
+  "registers": [
+    {
+      "name": "AP_CTRL",
+      "offset": "0x0",
+      "bits": 32,
+      "access": "read-write",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "GIE",
+      "offset": "0x4",
+      "bits": 32,
+      "access": "read-write",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "IER",
+      "offset": "0x8",
+      "bits": 32,
+      "access": "read-write",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "ISR",
+      "offset": "0xc",
+      "bits": 32,
+      "access": "read-write",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "TOKEN_IDS_DATA",
+      "offset": "0x10",
+      "bits": 64,
+      "access": "read-write",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "TABLE_R_DATA",
+      "offset": "0x1c",
+      "bits": 64,
+      "access": "read-write",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "HIDDEN_OUT_DATA",
+      "offset": "0x28",
+      "bits": 64,
+      "access": "read-write",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "RUN_MODE_DATA",
+      "offset": "0x34",
+      "bits": 32,
+      "access": "read-write",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "VALID_ROWS_DATA",
+      "offset": "0x3c",
+      "bits": 32,
+      "access": "read-write",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "HIDDEN_SIZE_DATA",
+      "offset": "0x44",
+      "bits": 32,
+      "access": "read-write",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "VOCAB_SIZE_DATA",
+      "offset": "0x4c",
+      "bits": 32,
+      "access": "read-write",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "ABI_VERSION_DATA",
+      "offset": "0x54",
+      "bits": 32,
+      "access": "read-write",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "JOB_ID_DATA",
+      "offset": "0x5c",
+      "bits": 32,
+      "access": "read-write",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "FLAGS_DATA",
+      "offset": "0x64",
+      "bits": 32,
+      "access": "read-write",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "RESULT_STATUS_CODE_DATA",
+      "offset": "0x6c",
+      "bits": 32,
+      "access": "read-only",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "RESULT_STATUS_CODE_CTRL",
+      "offset": "0x70",
+      "bits": 32,
+      "access": "read-only",
+      "reset_storage": 0,
+      "side_effect": "clear_on_read_bit0"
+    },
+    {
+      "name": "RESULT_PROCESSED_ROWS_DATA",
+      "offset": "0x7c",
+      "bits": 32,
+      "access": "read-only",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "RESULT_PROCESSED_ROWS_CTRL",
+      "offset": "0x80",
+      "bits": 32,
+      "access": "read-only",
+      "reset_storage": 0,
+      "side_effect": "clear_on_read_bit0"
+    },
+    {
+      "name": "RESULT_PERF_CYCLES_TOTAL_DATA",
+      "offset": "0x8c",
+      "bits": 64,
+      "access": "read-only",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "RESULT_PERF_CYCLES_TOTAL_CTRL",
+      "offset": "0x94",
+      "bits": 32,
+      "access": "read-only",
+      "reset_storage": 0,
+      "side_effect": "clear_on_read_bit0"
+    },
+    {
+      "name": "RESULT_PERF_CYCLES_COMPUTE_DATA",
+      "offset": "0xa4",
+      "bits": 64,
+      "access": "read-only",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "RESULT_PERF_CYCLES_COMPUTE_CTRL",
+      "offset": "0xac",
+      "bits": 32,
+      "access": "read-only",
+      "reset_storage": 0,
+      "side_effect": "clear_on_read_bit0"
+    },
+    {
+      "name": "RESULT_PERF_READ_BEATS_DATA",
+      "offset": "0xbc",
+      "bits": 64,
+      "access": "read-only",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "RESULT_PERF_READ_BEATS_CTRL",
+      "offset": "0xc4",
+      "bits": 32,
+      "access": "read-only",
+      "reset_storage": 0,
+      "side_effect": "clear_on_read_bit0"
+    },
+    {
+      "name": "RESULT_PERF_WRITE_BEATS_DATA",
+      "offset": "0xd4",
+      "bits": 64,
+      "access": "read-only",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "RESULT_PERF_WRITE_BEATS_CTRL",
+      "offset": "0xdc",
+      "bits": 32,
+      "access": "read-only",
+      "reset_storage": 0,
+      "side_effect": "clear_on_read_bit0"
+    },
+    {
+      "name": "RESULT_OUTPUT_CRC_DATA",
+      "offset": "0xec",
+      "bits": 32,
+      "access": "read-only",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "RESULT_OUTPUT_CRC_CTRL",
+      "offset": "0xf0",
+      "bits": 32,
+      "access": "read-only",
+      "reset_storage": 0,
+      "side_effect": "clear_on_read_bit0"
+    },
+    {
+      "name": "RESULT_BUILD_CONFIG_DATA",
+      "offset": "0xfc",
+      "bits": 32,
+      "access": "read-only",
+      "reset_storage": 0,
+      "side_effect": "see register_semantics.md"
+    },
+    {
+      "name": "RESULT_BUILD_CONFIG_CTRL",
+      "offset": "0x100",
+      "bits": 32,
+      "access": "read-only",
+      "reset_storage": 0,
+      "side_effect": "clear_on_read_bit0"
+    }
+  ]
+}

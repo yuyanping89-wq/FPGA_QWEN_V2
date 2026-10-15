@@ -1,0 +1,23 @@
+{
+  "source_url": "https://github.com/alinxalinx/AXU9EG_AXU15EG",
+  "local_source": "C:\\Users\\87767\\Desktop\\AXU9EG_AXU15EG-master\\vivado\\auto_create_project",
+  "upstream_commit": "unknown_user_downloaded_master_zip",
+  "upstream_tool": "Vivado 2020.1 per README",
+  "target_tool": "Vivado 2021.1",
+  "purpose": "configuration review only; no vendor script executed",
+  "board_validation": "pending",
+  "files": [
+    {
+      "file": "ps_config.tcl",
+      "sha256": "c6d2b90fd7ad73791ac8fafca76348b403d69835ea53e4250434783fa7731f74"
+    },
+    {
+      "file": "create_project.tcl",
+      "sha256": "8c7862accb3009336e4252bfa54e198403d6e4e43edb83501bb05ca4a0cd2e88"
+    },
+    {
+      "file": "project_info.tcl",
+      "sha256": "044565f25ecdebce05fc4bab33e3fa6a692b3e44a87e8a344f82c9dc36252896"
+    }
+  ]
+}

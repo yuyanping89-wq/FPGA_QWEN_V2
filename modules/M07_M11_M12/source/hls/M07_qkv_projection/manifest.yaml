@@ -1,0 +1,65 @@
+# Current maintained implementation; historical manifests backed up in baseline ZIP.
+module:
+  module_id: 7
+  name: m07
+  interface_revision: v2
+  status: csim-and-vivado-ooc-synthesis-pass-board-pending
+hls:
+  v2_top_function: qkv_projection_v2_hls
+  tool_version: Vitis_HLS_2021.1
+  target_part: xczu9eg-ffvb1156-2-i
+  ip_version: "3.1"
+  vlnv: "xilinx.com:hls:qkv_projection_v2_hls:3.1"
+  ip_repository: ip_v2_resource_fit_20261012/m07
+  build_script_from_workspace_root: tools/build_resource_fit_hls.tcl
+  testbench_from_package_root: tests/crc_control_tb.cpp
+interfaces:
+  abi_version: 2
+  control_base: 0xB0050000
+  data_width_bits: 128
+  data_master_count: 6
+  control_interface: s_axi_control
+  result_transport: AXI-Lite-common-result-fields
+  supported_flags_mask: 0xB
+  snapshot_supported: false
+  strict_validation: PS-checks-64-byte-alignment-PL-DDR-range-and-output-alias
+build:
+  build_config: 0x40008041
+  revision: 4
+  row_parallel: 4
+  bf16_lanes: 8
+  weight_stream_ii: 1
+  output_buffer: FP32-BRAM
+  weight_layout: W_OG32_I_L32_V2
+  decode_weight_passes: 1
+  prefill_64_weight_passes: 16
+performance:
+  total_cycles: RTL-inclusive-start-through-done
+  data_beats: sum-native-AXI-VALID-and-READY-handshakes
+  compute_cycles: 0-unavailable
+registers:
+  - {name: x, offset: 0x010}
+  - {name: w_qkv, offset: 0x01c}
+  - {name: bias_qkv, offset: 0x028}
+  - {name: q, offset: 0x034}
+  - {name: k, offset: 0x040}
+  - {name: v, offset: 0x04c}
+  - {name: run_mode, offset: 0x058}
+  - {name: valid_rows, offset: 0x060}
+  - {name: hidden_size, offset: 0x068}
+  - {name: layout_id, offset: 0x070}
+  - {name: abi_version, offset: 0x078}
+  - {name: job_id, offset: 0x080}
+  - {name: flags, offset: 0x088}
+  - {name: result_status_code, offset: 0x090}
+  - {name: result_processed_rows, offset: 0x0a0}
+  - {name: result_perf_cycles_total, offset: 0x0b0}
+  - {name: result_perf_cycles_compute, offset: 0x0c8}
+  - {name: result_perf_read_beats, offset: 0x0e0}
+  - {name: result_perf_write_beats, offset: 0x0f8}
+  - {name: result_output_crc, offset: 0x110}
+  - {name: result_build_config, offset: 0x120}
+verification:
+  full_datapath_rtl_cosim: pending
+  board: pending
+  prior_board_reports: historical-revision-only

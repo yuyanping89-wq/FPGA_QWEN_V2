@@ -1,0 +1,834 @@
+{
+  "schema": "m14_interface_contract_v2_delivery_2_flags_perf_aligned",
+  "identity": {
+    "module_id": 14,
+    "instance_id": null,
+    "instance_assignment": "pending system integration",
+    "name": "lm_head_v2",
+    "revision": 1,
+    "abi_version": 2
+  },
+  "build_config": {
+    "value": "0x10008011",
+    "decode": {
+      "h_lanes": {
+        "bits": [
+          0,
+          3
+        ],
+        "encoded": 1,
+        "decoded": 8
+      },
+      "row_tile": {
+        "bits": [
+          4,
+          9
+        ],
+        "encoded": 1,
+        "decoded": 1
+      },
+      "hidden_tile": {
+        "bits": [
+          10,
+          17
+        ],
+        "encoded": 32,
+        "decoded": 32
+      },
+      "numeric_impl": {
+        "bits": [
+          18,
+          21
+        ],
+        "encoded": 0,
+        "decoded": "current FP32 tree hardware"
+      },
+      "clock": {
+        "bits": [
+          22,
+          27
+        ],
+        "encoded": 0,
+        "decoded_hz": 100000000
+      },
+      "module_revision": {
+        "bits": [
+          28,
+          31
+        ],
+        "encoded": 1,
+        "decoded": 1
+      }
+    }
+  },
+  "capabilities": {
+    "value": "0x00000182",
+    "local_bits": {
+      "1": "DEBUG_CRC",
+      "7": "WRITE_LOGITS_OPTIONAL",
+      "8": "DUAL_RUN_MODE"
+    },
+    "public_enum_freeze": "pending"
+  },
+  "control_base": {
+    "standalone_example": "0xA0000000",
+    "aperture_bytes": 65536,
+    "integration_assignment": null
+  },
+  "control_register_source": "ip_repo/lm_head_v2/component.xml",
+  "control_registers": [
+    {
+      "name": "CTRL",
+      "offset": 0,
+      "width_bits": 32,
+      "access": "read-write",
+      "reset": 0
+    },
+    {
+      "name": "GIER",
+      "offset": 4,
+      "width_bits": 32,
+      "access": "read-write",
+      "reset": 0
+    },
+    {
+      "name": "IP_IER",
+      "offset": 8,
+      "width_bits": 32,
+      "access": "read-write",
+      "reset": 0
+    },
+    {
+      "name": "IP_ISR",
+      "offset": 12,
+      "width_bits": 32,
+      "access": "read-write",
+      "reset": 0
+    },
+    {
+      "name": "hidden_offset_1",
+      "offset": 16,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "hidden_offset_2",
+      "offset": 20,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "shared_vocab_weight_1",
+      "offset": 28,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "shared_vocab_weight_2",
+      "offset": 32,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "history_bitmap_1",
+      "offset": 40,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "history_bitmap_2",
+      "offset": 44,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "optional_logits_1",
+      "offset": 52,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "optional_logits_2",
+      "offset": 56,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "hidden_size_r",
+      "offset": 64,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "vocab_size",
+      "offset": 72,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "run_mode",
+      "offset": 80,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "valid_rows",
+      "offset": 88,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "write_logits",
+      "offset": 96,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "enable_penalty",
+      "offset": 104,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "repetition_penalty",
+      "offset": 112,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "abi_version",
+      "offset": 120,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "job_id",
+      "offset": 128,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "flags",
+      "offset": 136,
+      "width_bits": 32,
+      "access": "write-only",
+      "reset": 0
+    },
+    {
+      "name": "selected_token",
+      "offset": 144,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "selected_token_ctrl",
+      "offset": 148,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "selected_score",
+      "offset": 160,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "selected_score_ctrl",
+      "offset": 164,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "result_job_id",
+      "offset": 176,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "result_job_id_ctrl",
+      "offset": 180,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "status_code",
+      "offset": 192,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "status_code_ctrl",
+      "offset": 196,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "processed_rows",
+      "offset": 208,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "processed_rows_ctrl",
+      "offset": 212,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "perf_cycles_total_1",
+      "offset": 224,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "perf_cycles_total_2",
+      "offset": 228,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "perf_cycles_total_ctrl",
+      "offset": 232,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "perf_cycles_compute_1",
+      "offset": 248,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "perf_cycles_compute_2",
+      "offset": 252,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "perf_cycles_compute_ctrl",
+      "offset": 256,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "perf_read_beats_1",
+      "offset": 272,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "perf_read_beats_2",
+      "offset": 276,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "perf_read_beats_ctrl",
+      "offset": 280,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "perf_write_beats_1",
+      "offset": 296,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "perf_write_beats_2",
+      "offset": 300,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "perf_write_beats_ctrl",
+      "offset": 304,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "output_crc",
+      "offset": 320,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "output_crc_ctrl",
+      "offset": 324,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "build_config",
+      "offset": 336,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "build_config_ctrl",
+      "offset": 340,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "capabilities",
+      "offset": 352,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "capabilities_ctrl",
+      "offset": 356,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "vocab_rows_done",
+      "offset": 368,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "vocab_rows_done_ctrl",
+      "offset": 372,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "weight_read_beats_128_1",
+      "offset": 384,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "weight_read_beats_128_2",
+      "offset": 388,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "weight_read_beats_128_ctrl",
+      "offset": 392,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "history_read_words",
+      "offset": 408,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "history_read_words_ctrl",
+      "offset": 412,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "logits_write_beats_128_1",
+      "offset": 424,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "logits_write_beats_128_2",
+      "offset": 428,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "logits_write_beats_128_ctrl",
+      "offset": 432,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "weight_wait_cycles_1",
+      "offset": 448,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "weight_wait_cycles_2",
+      "offset": 452,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "weight_wait_cycles_ctrl",
+      "offset": 456,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "dot_active_cycles_1",
+      "offset": 472,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "dot_active_cycles_2",
+      "offset": 476,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "dot_active_cycles_ctrl",
+      "offset": 480,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "logits_written",
+      "offset": 496,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    },
+    {
+      "name": "logits_written_ctrl",
+      "offset": 500,
+      "width_bits": 32,
+      "access": "read-only",
+      "reset": 0
+    }
+  ],
+  "control_register_side_effect_source": "drivers/generated/xlm_head_v2_hw.h",
+  "buffers": [
+    {
+      "name": "hidden",
+      "direction": "read",
+      "dtype": "BF16",
+      "layout": "ACT_TH_V2_LAST_ROW",
+      "bytes": 1792,
+      "alignment_bytes": 64,
+      "axi_bits": 128,
+      "bundle": "m_axi_hidden",
+      "system_connection": "PS S_AXI_HP2_FPD via single-module SmartConnect (integration allocation pending)",
+      "endianness": "little",
+      "layout_enum_value": null,
+      "dtype_enum_value": null,
+      "hls_address_parameter": "hidden_offset",
+      "driver_address_parameter": "hidden_phys_addr"
+    },
+    {
+      "name": "shared_vocab_weight",
+      "direction": "read",
+      "dtype": "BF16",
+      "layout": "VOCAB_VH_V2",
+      "bytes": 272269312,
+      "alignment_bytes": 64,
+      "axi_bits": 128,
+      "bundle": "m_axi_weight",
+      "system_connection": "PS S_AXI_HP2_FPD via single-module SmartConnect (integration allocation pending)",
+      "endianness": "little",
+      "layout_enum_value": null,
+      "dtype_enum_value": null,
+      "hls_address_parameter": "shared_vocab_weight",
+      "driver_address_parameter": "weight_phys_addr"
+    },
+    {
+      "name": "history_bitmap",
+      "direction": "read_optional",
+      "dtype": "U32_BITMAP",
+      "layout": "HISTORY_BITMAP_V2",
+      "bytes": 18992,
+      "alignment_bytes": 64,
+      "axi_bits": 128,
+      "bundle": "m_axi_history",
+      "system_connection": "PS S_AXI_HP2_FPD via single-module SmartConnect (integration allocation pending)",
+      "endianness": "little",
+      "layout_enum_value": null,
+      "dtype_enum_value": null,
+      "hls_address_parameter": "history_bitmap",
+      "driver_address_parameter": "history_phys_addr"
+    },
+    {
+      "name": "optional_logits",
+      "direction": "write_optional",
+      "dtype": "FP32",
+      "layout": "RAW_LOGITS_V2",
+      "bytes": 607744,
+      "alignment_bytes": 64,
+      "axi_bits": 128,
+      "bundle": "m_axi_logits",
+      "system_connection": "PS S_AXI_HP2_FPD via single-module SmartConnect (integration allocation pending)",
+      "endianness": "little",
+      "layout_enum_value": null,
+      "dtype_enum_value": null,
+      "hls_address_parameter": "optional_logits",
+      "driver_address_parameter": "logits_phys_addr"
+    }
+  ],
+  "dimensions": {
+    "hidden_size": [
+      896,
+      896
+    ],
+    "vocab_size": [
+      151936,
+      151936
+    ],
+    "valid_rows": [
+      1,
+      1
+    ],
+    "run_mode": [
+      0,
+      1
+    ],
+    "write_logits": [
+      0,
+      1
+    ],
+    "enable_penalty": [
+      0,
+      1
+    ],
+    "repetition_penalty": "FP32 finite >=1 when enable_penalty=1; ignored otherwise"
+  },
+  "modes": {
+    "same_physical_ip": true,
+    "prefill": {
+      "run_mode": 0,
+      "valid_rows": 1
+    },
+    "decode": {
+      "run_mode": 1,
+      "valid_rows": 1
+    },
+    "upstream_T36_T64": "M03/PS selects final RMSNorm last row; full-sequence integration test pending"
+  },
+  "flags": {
+    "valid_mask": "0x0000000b",
+    "bits": {
+      "0": "ENABLE_OUTPUT_CRC",
+      "1": "ENABLE_PERF",
+      "2": "DEBUG_SNAPSHOT_RESERVED",
+      "3": "STRICT_CHECK"
+    },
+    "unknown_bits": "BAD_FLAGS (11), no work",
+    "actual_behavior": "accepts 0x0/1/2/3/8/9/A/B; bit0 gates CRC; bit1 gates all performance outputs; bit2 and unknown bits return BAD_FLAGS; bit3 is accepted but does not replace M03 software range/alias checks; write_logits is separate"
+  },
+  "results": [
+    {
+      "name": "selected_token",
+      "bits": 32
+    },
+    {
+      "name": "selected_score",
+      "bits": 32
+    },
+    {
+      "name": "result_job_id",
+      "bits": 32
+    },
+    {
+      "name": "status_code",
+      "bits": 32
+    },
+    {
+      "name": "processed_rows",
+      "bits": 32
+    },
+    {
+      "name": "perf_cycles_total",
+      "bits": 64
+    },
+    {
+      "name": "perf_cycles_compute",
+      "bits": 64
+    },
+    {
+      "name": "perf_read_beats",
+      "bits": 64
+    },
+    {
+      "name": "perf_write_beats",
+      "bits": 64
+    },
+    {
+      "name": "output_crc",
+      "bits": 32
+    },
+    {
+      "name": "build_config",
+      "bits": 32
+    },
+    {
+      "name": "capabilities",
+      "bits": 32
+    },
+    {
+      "name": "vocab_rows_done",
+      "bits": 32
+    },
+    {
+      "name": "weight_read_beats_128",
+      "bits": 64
+    },
+    {
+      "name": "history_read_words",
+      "bits": 32
+    },
+    {
+      "name": "logits_write_beats_128",
+      "bits": 64
+    },
+    {
+      "name": "weight_wait_cycles",
+      "bits": 64
+    },
+    {
+      "name": "dot_active_cycles",
+      "bits": 64
+    },
+    {
+      "name": "logits_written",
+      "bits": 32
+    }
+  ],
+  "status_codes": {
+    "0": "OK",
+    "1": "BAD_ABI",
+    "2": "BAD_DIMENSION",
+    "3": "BAD_ALIGNMENT",
+    "4": "BAD_ADDRESS_RANGE",
+    "5": "BAD_LAYOUT",
+    "6": "BAD_LAYER",
+    "7": "BAD_TOKEN",
+    "8": "BAD_ALIAS",
+    "9": "NUMERIC_ERROR",
+    "10": "DRIVER_TIMEOUT",
+    "11": "BAD_FLAGS",
+    "12": "INTERNAL_ERROR",
+    "13": "NOT_READY (host driver only)"
+  },
+  "status_implementation_note": "Declared vocabulary is not proof of enforcement. HLS checks ABI/dim/mode/flags/penalty/numeric; local driver adds active pointer/alignment; range/layout/alias/etc belong to M03.",
+  "counters": {
+    "read_write_unit": "native AXI data-channel beat; sum of RVALID&&RREADY or WVALID&&WREADY across all four M14 masters; no byte normalization",
+    "history_read_words_unit": "32-bit logical word",
+    "cycles_total": "accepted ap_start through ap_done inclusive",
+    "cycles_compute": "zero; no trusted compute-active signal is exposed",
+    "common_perf_enable": "flags bit1; four common fields are zero when disabled or flags are invalid",
+    "m14_diagnostics": "M14-specific logical/modeled counters, populated only when flags bit1 is enabled; not substitutes for the common AXI handshake counters",
+    "c_simulation": "common perf_* fields remain zero in C simulation; packaged RTL supplies measured counters",
+    "a53_timer": "33333000 counts/s; includes submit/wait/verify loop"
+  },
+  "crc": {
+    "algorithm": "IEEE CRC32 reflected polynomial 0xedb88320 init/final xor 0xffffffff",
+    "bytes": "little-endian uint32 selected_token followed by uint32 selected_score_bits",
+    "enabled_by": "flags bit0"
+  },
+  "alias": {
+    "allowed": [
+      "M05/M14 shared canonical immutable weight read/read"
+    ],
+    "forbidden": [
+      "active output overlaps active input or weight",
+      "in-place output"
+    ],
+    "validator": "M03 range/capacity/layout/owner/generation/alias validation required; not implemented by local driver"
+  },
+  "timeout": {
+    "class": null,
+    "class_state": "pending architecture freeze",
+    "single_host_default_seconds": 30,
+    "repeat_host_max_seconds": 600,
+    "driver_poll_budget_is_iterations": true,
+    "worst_measured_single_ip_ms": 224.86814,
+    "worst_measured_single_a53_ms": 224.88671886718868,
+    "tested_1000_call_wall_seconds": 224.87929442294424
+  },
+  "numeric": {
+    "id": "bf16_rne_h8_interleave16_fp32_adjacent_tree_v2",
+    "conversion": "FP32->BF16 RNE; BF16->FP32 bits shifted left16",
+    "accumulation": "FP32 multiply/add separately rounded; 8 lanes,16 interleave; adjacent lane tree",
+    "penalty": "seen raw<0 multiply, otherwise divide; argmax ties smaller token",
+    "debug_logits": "raw pre-penalty FP32",
+    "gate": "token/score bits/CRC/raw logits SHA256 exact, tolerance=0",
+    "special_values": "finite archived trace tested; extreme/subnormal matrix pending; NUMERIC_ERROR on nonfinite output"
+  },
+  "tests": {
+    "decode_T1_penalty_on": "historical r1 BOARD PASS 8 production +8 debug; revised RTL not board-tested",
+    "prefill_T1": "pending dedicated mode test; same source datapath",
+    "upstream_T36_T64": "pending native last-row integrated test",
+    "errors": "r1 BOARD PASS; revised flags/performance behavior CSim PASS, no new board test",
+    "boundary_address": "pending M03 and board boundary matrix",
+    "penalty_off": "compact CSim/RTL CoSim functionality evidence; production-size board/performance pending",
+    "performance": "r1 30-run/1000-call data is historical and does not validate revised common RTL counters",
+    "tcp_faults": "historical r1: 6 board cases PASS; revised RTL not retested",
+    "flags_perf_alignment": "CSim PASS for eight accepted flag values, CRC/PERF gating, reserved-bit rejection; shared RTL counter XSim PASS"
+  },
+  "known_limitations": [
+    "Public ABI enum/header, instance id, address assignment and timeout class pending architecture freeze",
+    "Historical r1 board acceptance predates the aligned flags/performance RTL; the revised candidate has not been board-tested",
+    "Input trace is historical FP16 converted to BF16; native M06 V2 BF16 trace pending",
+    "Prefill T=36/64 upstream last-row selection and integrated path pending",
+    "M03 must enforce range/capacity/layout/owner/generation/alias; boundary address tests pending",
+    "Internal AXI counters do not replace external HP2 APM; external monitor pending",
+    "No PL DDR/MIG in independent image; full system integration pending",
+    "Numeric bit-exact guarantee scoped to archived finite trace and tool version; extreme/subnormal matrix pending"
+  ]
+}

@@ -1,0 +1,72 @@
+
+module:
+  module_id: 12
+  interface_revision: v2
+  name: residual_add
+  owner: implementation-team
+  status: hls-verified-bf16
+  supports:
+    prefill: true
+    decode: true
+
+hls:
+  top_function: attention_residual_add
+  v2_top_function: residual_add_v2_hls
+  source_files:
+    - hls/residual_add_kernel.cpp
+    - hls/residual_add_kernel.hpp
+  testbench: hls/residual_add_v2_tb.cpp
+  ip_repository: hls/m12_v2/f/impl/ip/
+  tool_version: Vitis_HLS_2021.1
+  target_part: xczu9eg-ffvb1156-2-i
+  ip_version: 3.0
+
+interfaces:
+  abi_version: 2
+  run_modes: [prefill, decode]
+  common_fields: [abi_version, job_id, run_mode, valid_rows, flags]
+  v2_layout: ACT_TH_V2
+  control_interface: s_axi_control
+  data_interfaces:
+    - {port: m_axi_gmem0, meaning: residual}
+    - {port: m_axi_gmem1, meaning: attention}
+    - {port: m_axi_gmem2, meaning: output}
+    - {port: m_axi_gmem3, meaning: result_words_8x64}
+
+dtype: bf16_uint16_le
+tensors:
+  inputs:
+    - {name: residual, shape: "[T,896]", dtype: bf16, layout: row_major}
+    - {name: attention, shape: "[T,896]", dtype: bf16, layout: row_major}
+  outputs:
+    - {name: output, shape: "[T,896]", dtype: bf16, layout: row_major}
+  compute:
+    add: fp32
+    output_rounding: bf16_rne
+
+registers:
+  v2_result: common_result_v2
+  arguments:
+    - {name: residual, offset: 0x10, width: 64}
+    - {name: attention, offset: 0x1c, width: 64}
+    - {name: output, offset: 0x28, width: 64}
+    - {name: run_mode, width: 32}
+    - {name: valid_rows, width: 32}
+    - {name: hidden_size, width: 32}
+    - {name: residual_role, width: 32}
+    - {name: abi_version, width: 32}
+    - {name: job_id, width: 32}
+    - {name: flags, width: 32}
+    - {name: result_words, width: 64, depth: 8}
+
+tests:
+  golden_trace_root: ../../integration_tests/golden_traces/qwen25_0p5b_instruct_full_generation_trace
+  vectors: tests/
+  tolerance: {atol: 0.0, rtol: 0.0}
+  hls_csim: {T: 36, mismatches: 0}
+  board_status: pending_for_v3_bf16
+
+reports:
+  hls_report: reports/attention_residual_add_csynth_axu9eg.rpt
+  cosim_report: reports/attention_residual_add_cosim_axu9eg.rpt
+  vivado_report: reports/unified_timing_summary.rpt

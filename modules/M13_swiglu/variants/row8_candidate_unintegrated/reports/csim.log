@@ -1,0 +1,8 @@
+INFO: [SIM 2] *************** CSIM start ***************
+INFO: [SIM 4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../../../module_raw/module_13_swiglu_legacy_core_abi_v2/tb/swiglu_v2_interface_tb.cpp in release mode
+   Compiling ../../../../../../build-review/resource_fit_20261012/variants/packed_acc_row8/swiglu_v2.cpp in release mode
+   Generating csim.exe
+swiglu_v2 interface test: PASS
+INFO: [SIM 1] CSim done with 0 errors.
+INFO: [SIM 3] *************** CSIM finish ***************

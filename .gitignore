@@ -1,0 +1,29 @@
+# Generated tools, local IDE state, and external model assets.
+**/.Xil/
+**/.cache/
+**/.pytest_cache/
+**/__pycache__/
+**/.metadata/
+**/.settings/
+**/*.jou
+**/*.wdb
+**/*.dcp
+**/*.rpx
+**/*.pb
+**/*.runs/
+**/*.gen/
+**/Debug/
+**/Release/
+/build-review/
+/results/
+**/qwen_model/
+**/model_assets/
+**/weights/
+**/BOOT.BIN
+**/*.safetensors
+**/*.bf16.bin
+**/*.bin
+*.elf
+!vitis/prebuilt/*.elf
+
+# Intentionally keep checked board artifacts: *.bit and *.xsa are not ignored.

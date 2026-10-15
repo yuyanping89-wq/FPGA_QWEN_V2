@@ -1,0 +1,344 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "name": "validated",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "part_unchanged",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "original_external_ports",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "only_expected_cells_added",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "original_cells_parameters_preserved",
+      "passed": true,
+      "details": []
+    },
+    {
+      "name": "original_axi_connections",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "original_signal_connections",
+      "passed": true,
+      "details": []
+    },
+    {
+      "name": "original_addresses_unchanged",
+      "passed": true,
+      "details": []
+    },
+    {
+      "name": "m08_rope_v2_0_control_address",
+      "passed": true,
+      "details": {
+        "address_block": "/m08_rope_v2_0/s_axi_control/Reg",
+        "offset": "0x00B0090000",
+        "range": "64K"
+      }
+    },
+    {
+      "name": "m08_rope_v2_0_control_net",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m08_rope_v2_0_gmem0_plddr",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m08_rope_v2_0_gmem0_connection",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m08_rope_v2_0_gmem1_plddr",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m08_rope_v2_0_gmem1_connection",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m08_rope_v2_0_gmem2_plddr",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m08_rope_v2_0_gmem2_connection",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m08_rope_v2_0_gmem3_plddr",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m08_rope_v2_0_gmem3_connection",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m08_rope_v2_0_gmem4_plddr",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m08_rope_v2_0_gmem4_connection",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m08_rope_v2_0_gmem5_plddr",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m08_rope_v2_0_gmem5_connection",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m10_attention_v2_0_control_address",
+      "passed": true,
+      "details": {
+        "address_block": "/m10_attention_v2_0/s_axi_control/Reg",
+        "offset": "0x00B00A0000",
+        "range": "64K"
+      }
+    },
+    {
+      "name": "m10_attention_v2_0_control_net",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m10_attention_v2_0_gmem0_plddr",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m10_attention_v2_0_gmem0_connection",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m10_attention_v2_0_gmem1_plddr",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m10_attention_v2_0_gmem1_connection",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m10_attention_v2_0_gmem2_plddr",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m10_attention_v2_0_gmem2_connection",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m10_attention_v2_0_gmem3_plddr",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m10_attention_v2_0_gmem3_connection",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "attention_branch_merge",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "interconnect_sizes",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m08_rope_v2_master_ports",
+      "passed": true,
+      "details": [
+        "m_axi_gmem0",
+        "m_axi_gmem1",
+        "m_axi_gmem2",
+        "m_axi_gmem3",
+        "m_axi_gmem4",
+        "m_axi_gmem5"
+      ]
+    },
+    {
+      "name": "m08_rope_v2_128bit_native_axi",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m08_rope_v2_measured_perf",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m08_rope_v2_common_result_offsets",
+      "passed": true,
+      "details": {
+        "Q_RAW": 16,
+        "K_RAW": 28,
+        "COS_TABLE": 40,
+        "SIN_TABLE": 52,
+        "Q_ROT": 64,
+        "K_ROT": 76,
+        "RUN_MODE": 88,
+        "VALID_ROWS": 96,
+        "POSITION_BASE": 104,
+        "MAX_POSITION": 112,
+        "ABI_VERSION": 120,
+        "JOB_ID": 128,
+        "FLAGS": 136,
+        "RESULT_STATUS_CODE": 144,
+        "RESULT_PROCESSED_ROWS": 160,
+        "RESULT_PERF_CYCLES_TOTAL": 176,
+        "RESULT_PERF_CYCLES_COMPUTE": 200,
+        "RESULT_PERF_READ_BEATS": 224,
+        "RESULT_PERF_WRITE_BEATS": 248,
+        "RESULT_OUTPUT_CRC": 272,
+        "RESULT_BUILD_CONFIG": 288
+      }
+    },
+    {
+      "name": "m08_rope_v2_no_result_ddr",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m10_attention_v2_master_ports",
+      "passed": true,
+      "details": [
+        "m_axi_gmem0",
+        "m_axi_gmem1",
+        "m_axi_gmem2",
+        "m_axi_gmem3"
+      ]
+    },
+    {
+      "name": "m10_attention_v2_128bit_native_axi",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m10_attention_v2_measured_perf",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "m10_attention_v2_common_result_offsets",
+      "passed": true,
+      "details": {
+        "Q_ROT": 16,
+        "K_CACHE": 28,
+        "V_CACHE": 40,
+        "ATTN_OUT": 52,
+        "RUN_MODE": 64,
+        "LAYER_ID": 72,
+        "QUERY_POS_BASE": 80,
+        "VALID_ROWS": 88,
+        "CACHE_LEN": 96,
+        "SCALE": 104,
+        "CAUSAL": 112,
+        "ABI_VERSION": 120,
+        "JOB_ID": 128,
+        "FLAGS": 136,
+        "RESULT_STATUS_CODE": 144,
+        "RESULT_PROCESSED_ROWS": 160,
+        "RESULT_PERF_CYCLES_TOTAL": 176,
+        "RESULT_PERF_CYCLES_COMPUTE": 200,
+        "RESULT_PERF_READ_BEATS": 224,
+        "RESULT_PERF_WRITE_BEATS": 248,
+        "RESULT_OUTPUT_CRC": 272,
+        "RESULT_BUILD_CONFIG": 288
+      }
+    },
+    {
+      "name": "m10_attention_v2_no_result_ddr",
+      "passed": true,
+      "details": null
+    },
+    {
+      "name": "original_constraints_templates",
+      "passed": true,
+      "details": null
+    }
+  ],
+  "registers": {
+    "m08_rope_v2": {
+      "Q_RAW": 16,
+      "K_RAW": 28,
+      "COS_TABLE": 40,
+      "SIN_TABLE": 52,
+      "Q_ROT": 64,
+      "K_ROT": 76,
+      "RUN_MODE": 88,
+      "VALID_ROWS": 96,
+      "POSITION_BASE": 104,
+      "MAX_POSITION": 112,
+      "ABI_VERSION": 120,
+      "JOB_ID": 128,
+      "FLAGS": 136,
+      "RESULT_STATUS_CODE": 144,
+      "RESULT_PROCESSED_ROWS": 160,
+      "RESULT_PERF_CYCLES_TOTAL": 176,
+      "RESULT_PERF_CYCLES_COMPUTE": 200,
+      "RESULT_PERF_READ_BEATS": 224,
+      "RESULT_PERF_WRITE_BEATS": 248,
+      "RESULT_OUTPUT_CRC": 272,
+      "RESULT_BUILD_CONFIG": 288
+    },
+    "m10_attention_v2": {
+      "Q_ROT": 16,
+      "K_CACHE": 28,
+      "V_CACHE": 40,
+      "ATTN_OUT": 52,
+      "RUN_MODE": 64,
+      "LAYER_ID": 72,
+      "QUERY_POS_BASE": 80,
+      "VALID_ROWS": 88,
+      "CACHE_LEN": 96,
+      "SCALE": 104,
+      "CAUSAL": 112,
+      "ABI_VERSION": 120,
+      "JOB_ID": 128,
+      "FLAGS": 136,
+      "RESULT_STATUS_CODE": 144,
+      "RESULT_PROCESSED_ROWS": 160,
+      "RESULT_PERF_CYCLES_TOTAL": 176,
+      "RESULT_PERF_CYCLES_COMPUTE": 200,
+      "RESULT_PERF_READ_BEATS": 224,
+      "RESULT_PERF_WRITE_BEATS": 248,
+      "RESULT_OUTPUT_CRC": 272,
+      "RESULT_BUILD_CONFIG": 288
+    }
+  }
+}

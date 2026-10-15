@@ -1,0 +1,37 @@
+{
+  "board": "ALINX AXU9EGB",
+  "part": "xczu9eg-ffvb1156-2-i",
+  "scope": "independent archived M14 image",
+  "PS_DDR_physical_data_bits": 64,
+  "PS_DDR_capacity_bytes": 4294967296,
+  "PS_DDR_regions": [
+    {
+      "base": "0x000000000",
+      "bytes": 2147483648
+    },
+    {
+      "base": "0x800000000",
+      "bytes": 2147483648
+    }
+  ],
+  "HP2_axi_bits": 128,
+  "HP2_address_bits": 49,
+  "M14_axi_pointer_bits": 64,
+  "project_phys_addr_bits": 40,
+  "target_PL_clock_hz": 100000000,
+  "reported_PL_clock_hz": 99999001,
+  "PS_reference_clock_MHz": 33.333,
+  "PL_DDR_used": false,
+  "MIG_instantiated": false,
+  "MIG_calibration_ready": null,
+  "MIG_calibration_note": "not applicable to this image; do not assert system MIG ready",
+  "ready_checks": "Full DDR CRC/sentinels/board campaign passed historically; live DDR/clock/reset ready must be checked by M02 at each boot",
+  "standalone_allocations": {
+    "weights": "0x40000000",
+    "hidden": "0x503A8000",
+    "history": "0x503A8700",
+    "logits": "0x503AD140",
+    "mailbox": "0x51000000"
+  },
+  "integration_allocation": "pending M02/M03; standalone example addresses not global fixed allocations"
+}

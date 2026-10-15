@@ -1,0 +1,33 @@
+{
+  "schema": "m05-local-perf-profile-v1",
+  "module": "M05 Token Embedding with actual RTL counters",
+  "top_function": "embedding_v2",
+  "abi_version": 2,
+  "hls_core_build_config_hex": "0x10010011",
+  "build_config_hex": "0x20010011",
+  "module_revision": 2,
+  "encoding_status": "document_suggested_mapping_pending_project_freeze",
+  "validation_status": "implementation_pending_user_rtl_validation",
+  "performance_counters_implemented": true,
+  "counter_layer": "post_hls_rtl_instrumentation",
+  "supported_flags_mask": 0,
+  "counter_enable": "always_on_in_instrumented_rtl",
+  "total_cycle_window": "accepted_start_to_ap_done_inclusive_rising_edges",
+  "compute_cycle_definition": "cycles_with_any_ids_R_or_weight_R_or_output_W_handshake",
+  "read_beats_definition": "ids_R_handshakes_plus_weight_R_handshakes",
+  "write_beats_definition": "output_W_handshakes",
+  "counter_bits": 64,
+  "overflow": "unsigned_modulo_2_to_the_64",
+  "snapshot": "same_clock_edge_as_ap_done_latched_by_control_registers",
+  "read_protocol": "wait_done_then_read_all_results_before_next_start_no_auto_restart",
+  "job_id": "latched_in_monitor_for_debug_PS_retains_job_id_until_result_read",
+  "target_clock_ns": 10,
+  "ids_data_bits": 32,
+  "table_and_output_data_bits": 128,
+  "counter_registers": {
+    "perf_cycles_total": {"low": "0x08c", "high": "0x090"},
+    "perf_cycles_compute": {"low": "0x0a4", "high": "0x0a8"},
+    "perf_read_beats": {"low": "0x0bc", "high": "0x0c0"},
+    "perf_write_beats": {"low": "0x0d4", "high": "0x0d8"}
+  }
+}

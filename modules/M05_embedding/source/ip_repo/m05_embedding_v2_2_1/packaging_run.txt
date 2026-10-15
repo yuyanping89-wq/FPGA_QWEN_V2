@@ -1,0 +1,5 @@
+Vivado: 2021.1
+Created: Sat Oct 10 13:35:21 +0800 2026
+VLNV: llm-fpga.local:user:m05_embedding_v2:2.1
+component.xml saved and catalog entry found. Inspect console integrity diagnostics.
+No simulation/synthesis/implementation/board test performed by this script.

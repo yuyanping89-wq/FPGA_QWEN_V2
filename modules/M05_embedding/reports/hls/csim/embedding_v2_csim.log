@@ -1,0 +1,36 @@
+INFO: [SIM 2] *************** CSIM start ***************
+INFO: [SIM 4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../../test_embedding_v2_cosim.cpp in debug mode
+   Compiling ../../../../../embedding_v2.cpp in debug mode
+   Generating csim.exe
+[INFO] M05 RTL boundary regression: 12 transactions, full vocabulary.
+[INFO] Table payload: 272269312 bytes; host ap_uint size: 16 bytes. Co-simulation files can occupy several GB.
+[RUN] prefill T=64, boundaries and repeated tokens
+[PASS] prefill T=64, boundaries and repeated tokens
+[RUN] bad middle token, processed_rows=1
+[PASS] bad middle token, processed_rows=1
+[RUN] decode T=1 after error, last token
+[PASS] decode T=1 after error, last token
+[RUN] bad first token UINT32_MAX, processed_rows=0
+[PASS] bad first token UINT32_MAX, processed_rows=0
+[RUN] bad last token at row 63, processed_rows=63
+[PASS] bad last token at row 63, processed_rows=63
+[RUN] prefill T=64 after two token errors
+[PASS] prefill T=64 after two token errors
+[RUN] prefill T=1, first token
+[PASS] prefill T=1, first token
+[RUN] prefill T=36
+[PASS] prefill T=36
+[RUN] reject valid_rows=0
+[PASS] reject valid_rows=0
+[RUN] reject valid_rows=65
+[PASS] reject valid_rows=65
+[RUN] reject decode T=2
+[PASS] reject decode T=2
+[RUN] decode T=1 after three parameter errors
+[PASS] decode T=1 after three parameter errors
+
+ALL 12 RTL-SUITABLE CASES PASSED
+[INFO] This message alone does not prove RTL PASS. Also check the final HLS co-simulation report.
+INFO: [SIM 1] CSim done with 0 errors.
+INFO: [SIM 3] *************** CSIM finish ***************

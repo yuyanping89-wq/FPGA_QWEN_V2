@@ -1,0 +1,66 @@
+{
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"0.385815",
+   "Default View_TopLeft":"-156,-378",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.0r6  2020-01-29 bk=1.5227 VDI=41 GEI=36 GUI=JA:10.0 non-TLS
+#  -string -flagsOSRD
+preplace port C0_SYS_CLK_0 -pg 1 -lvl 0 -x 0 -y 410 -defaultsOSRD
+preplace port C0_DDR4_0 -pg 1 -lvl 11 -x 3700 -y 420 -defaultsOSRD
+preplace inst zynq_ultra_ps_e_0 -pg 1 -lvl 4 -x 1260 -y 750 -defaultsOSRD
+preplace inst proc_sys_reset_0 -pg 1 -lvl 1 -x 190 -y 580 -defaultsOSRD
+preplace inst ddr4_0 -pg 1 -lvl 10 -x 3500 -y 470 -defaultsOSRD
+preplace inst axi_clock_converter_0 -pg 1 -lvl 9 -x 3150 -y 290 -defaultsOSRD
+preplace inst mig_sys_rst_invert -pg 1 -lvl 8 -x 2820 -y 780 -defaultsOSRD
+preplace inst mig_ui_reset_invert -pg 1 -lvl 8 -x 2820 -y 380 -defaultsOSRD
+preplace inst proc_sys_reset_mig -pg 1 -lvl 9 -x 3150 -y 540 -defaultsOSRD
+preplace inst mig_dcm_locked -pg 1 -lvl 8 -x 2820 -y 580 -defaultsOSRD
+preplace inst sc_ctrl_v2 -pg 1 -lvl 5 -x 1730 -y 680 -defaultsOSRD
+preplace inst axi_cdma_0 -pg 1 -lvl 2 -x 520 -y 570 -defaultsOSRD
+preplace inst sc_dma_targets_v2 -pg 1 -lvl 3 -x 800 -y 580 -defaultsOSRD
+preplace inst sc_hls_plddr_v2 -pg 1 -lvl 7 -x 2500 -y 220 -defaultsOSRD
+preplace inst sc_plddr_merge_v2 -pg 1 -lvl 8 -x 2820 -y 250 -defaultsOSRD
+preplace inst m06_rmsnorm_0 -pg 1 -lvl 6 -x 2110 -y 500 -defaultsOSRD
+preplace inst m09_kv_cache_update_0 -pg 1 -lvl 6 -x 2110 -y 90 -defaultsOSRD
+preplace inst m13_swiglu_0 -pg 1 -lvl 6 -x 2110 -y 280 -defaultsOSRD
+preplace netloc ddr4_0_c0_ddr4_ui_clk 1 8 3 2980 640 NJ 640 3670
+preplace netloc ddr4_0_c0_ddr4_ui_clk_sync_rst 1 7 4 2670 140 NJ 140 NJ 140 3680
+preplace netloc ddr4_0_c0_init_calib_complete 1 10 1 N 440
+preplace netloc mig_dcm_locked_dout 1 8 1 NJ 580
+preplace netloc mig_sys_rst_invert_Res 1 8 2 2970 650 3330
+preplace netloc mig_ui_reset_invert_Res 1 8 1 2970J 330n
+preplace netloc proc_sys_reset_0_interconnect_aresetn 1 1 1 N 600
+preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 8 370 660 660 660 940J 600 1590 580 1890 390 2360 410 2650 160 2970J
+preplace netloc proc_sys_reset_mig_peripheral_aresetn 1 9 1 3320 480n
+preplace netloc zynq_ultra_ps_e_0_pl_clk0 1 0 9 20 480 360 670 650 670 960 610 1570 500 1900 400 2350 420 2640 150 2980J
+preplace netloc zynq_ultra_ps_e_0_pl_resetn0 1 0 8 20 890 NJ 890 NJ 890 NJ 890 1560 780 NJ 780 NJ 780 NJ
+preplace netloc C0_SYS_CLK_0_1 1 0 10 NJ 410 NJ 410 NJ 410 NJ 410 NJ 410 NJ 410 2300J 440 NJ 440 NJ 440 NJ
+preplace netloc axi_cdma_0_M_AXI 1 2 1 N 560
+preplace netloc axi_clock_converter_0_M_AXI 1 9 1 3320 290n
+preplace netloc ddr4_0_C0_DDR4 1 10 1 N 420
+preplace netloc m06_rmsnorm_0_m_axi_m_axi_weight 1 6 1 2330 110n
+preplace netloc m06_rmsnorm_0_m_axi_m_axi_x 1 6 1 2320 90n
+preplace netloc m06_rmsnorm_0_m_axi_m_axi_y 1 6 1 2340 130n
+preplace netloc m09_kv_cache_update_0_m_axi_m_axi_k_cache 1 6 1 2310 90n
+preplace netloc m09_kv_cache_update_0_m_axi_m_axi_k_new 1 6 1 2360 50n
+preplace netloc m09_kv_cache_update_0_m_axi_m_axi_v_cache 1 6 1 2300 110n
+preplace netloc m09_kv_cache_update_0_m_axi_m_axi_v_new 1 6 1 2350 70n
+preplace netloc m13_swiglu_0_m_axi_w_down 1 6 1 N 290
+preplace netloc m13_swiglu_0_m_axi_w_gate 1 6 1 N 250
+preplace netloc m13_swiglu_0_m_axi_w_up 1 6 1 N 270
+preplace netloc m13_swiglu_0_m_axi_x 1 6 1 N 230
+preplace netloc m13_swiglu_0_m_axi_y 1 6 1 N 310
+preplace netloc qkvupdate_smartconnect_plddr_M00_AXI 1 8 1 N 250
+preplace netloc qkvupdate_smartconnect_psddr_M00_AXI 1 3 1 950 570n
+preplace netloc sc_ctrl_v2_M00_AXI 1 5 1 1910 480n
+preplace netloc sc_ctrl_v2_M01_AXI 1 5 1 1880 70n
+preplace netloc sc_ctrl_v2_M02_AXI 1 1 5 370 480 NJ 480 NJ 480 NJ 480 1870
+preplace netloc sc_ctrl_v2_M03_AXI 1 5 1 1920 260n
+preplace netloc sc_dma_targets_v2_M01_AXI 1 3 5 NJ 590 NJ 590 NJ 590 2360J 430 2660
+preplace netloc sc_hls_plddr_v2_M00_AXI 1 7 1 N 220
+preplace netloc zynq_ultra_ps_e_0_M_AXI_HPM1_FPD 1 4 1 1580 660n
+levelinfo -pg 1 0 190 520 800 1260 1730 2110 2500 2820 3150 3500 3700
+pagesize -pg 1 -db -bbox -sgen -160 -10 3830 910
+"
+}
+

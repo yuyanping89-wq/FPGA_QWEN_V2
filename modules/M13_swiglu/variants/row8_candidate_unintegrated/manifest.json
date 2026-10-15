@@ -1,0 +1,21 @@
+{
+  "variant": "row8_packed",
+  "row_tile": 8,
+  "mid_tile": 64,
+  "mid_full_fp32_bytes": 2048,
+  "build_config": "0x40450081",
+  "vlnv": "user.org:hls:swiglu_v2:2.0",
+  "core_revision": 2026101401,
+  "source_sha256": "32d8a782f550ed91f8c161ee075d497cf0ae37c9a954ae63a7a4aaa9bbbb5bfc",
+  "header_sha256": "ec25b1b995ab3d601e9396feb8c8f12f5a708ea5b472f6c2edd70ab72b845cac",
+  "component_sha256": "352e09d8bc559b0d9c6fd920719bea6a945bba4feea01392cd42edec731b9de8",
+  "ip_top_sha256": "9b975b2789eceac9d3ce9f87055692b5eb317231a9f01d15d8042d7bffb78f35",
+  "ip_file_count": 92,
+  "ip_repository": "D:\\FPGA_PRO\\FPGA_QWEN\\module_raw\\module_13_swiglu_legacy_core_abi_v2\\versions\\row8_packed\\ip",
+  "report_sha256": {
+    "csim.log": "59940ccb9f445ce6841680fa6869104042ff1ef4cb273d4f090cb1f503abb42b",
+    "csynth.rpt": "d3301d59c554a5f97c36aedb14afeecbde2bca57d1f412b8b0d58b3ad6b89981",
+    "utilization_ooc.rpt": "e7ff74e3ebb89d2cbe88473277d64448cb5b9edcdd6ed63a749b81d3e0510dc0",
+    "timing_ooc.rpt": "f444f2c08532ce5bb366c935d39773896cd076bbbd70a95c852608490bd677ef"
+  }
+}

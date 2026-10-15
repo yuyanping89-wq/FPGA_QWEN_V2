@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xd:acceleratorMap xmlns:xd="http://www.xilinx.com/xidane" xd:functionName="lm_head_v2" xd:componentRef="lm_head_v2" xd:initiationInterval="x" xd:clockPeriod="10" xd:sequential="true" xd:hostMachine="64" xd:reset="control">
+  <xd:controlReg xd:name="control" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:type="generic_axi_lite" xd:offset="0x0"/>
+  <xd:arg xd:name="*(hidden)" xd:originalName="hidden" xd:direction="inout" xd:interfaceRef="m_axi_hidden" xd:busTypeRef="aximm" xd:dataWidth="128" xd:bufferDirection="in"/>
+  <xd:arg xd:name="hidden" xd:originalName="hidden" xd:direction="in" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:dataWidth="32" xd:aximmInterfaceRef="m_axi_hidden"/>
+  <xd:arg xd:name="*(shared_vocab_weight)" xd:originalName="shared_vocab_weight" xd:direction="inout" xd:interfaceRef="m_axi_weight" xd:busTypeRef="aximm" xd:dataWidth="128" xd:bufferDirection="in"/>
+  <xd:arg xd:name="shared_vocab_weight" xd:originalName="shared_vocab_weight" xd:direction="in" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x1C" xd:dataWidth="32" xd:aximmInterfaceRef="m_axi_weight"/>
+  <xd:arg xd:name="*(history_bitmap)" xd:originalName="history_bitmap" xd:direction="inout" xd:interfaceRef="m_axi_history" xd:busTypeRef="aximm" xd:dataWidth="128" xd:bufferDirection="in"/>
+  <xd:arg xd:name="history_bitmap" xd:originalName="history_bitmap" xd:direction="in" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x28" xd:dataWidth="32" xd:aximmInterfaceRef="m_axi_history"/>
+  <xd:arg xd:name="*(optional_logits)" xd:originalName="optional_logits" xd:direction="inout" xd:interfaceRef="m_axi_logits" xd:busTypeRef="aximm" xd:dataWidth="128" xd:bufferDirection="out"/>
+  <xd:arg xd:name="optional_logits" xd:originalName="optional_logits" xd:direction="in" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x34" xd:dataWidth="32" xd:aximmInterfaceRef="m_axi_logits"/>
+  <xd:arg xd:name="hidden_size" xd:originalName="hidden_size" xd:direction="in" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x40" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="vocab_size" xd:originalName="vocab_size" xd:direction="in" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x48" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="run_mode" xd:originalName="run_mode" xd:direction="in" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x50" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="valid_rows" xd:originalName="valid_rows" xd:direction="in" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x58" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="write_logits" xd:originalName="write_logits" xd:direction="in" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x60" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="enable_penalty" xd:originalName="enable_penalty" xd:direction="in" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x68" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="repetition_penalty" xd:originalName="repetition_penalty" xd:direction="in" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x70" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="abi_version" xd:originalName="abi_version" xd:direction="in" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x78" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="job_id" xd:originalName="job_id" xd:direction="in" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x80" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="flags" xd:originalName="flags" xd:direction="in" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x88" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(selected_token)" xd:originalName="selected_token" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x90" xd:statusOffset="0x94" xd:handshakeRef="ap_vld" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(selected_score)" xd:originalName="selected_score" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0xA0" xd:statusOffset="0xA4" xd:handshakeRef="ap_vld" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(result_job_id)" xd:originalName="result_job_id" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0xB0" xd:statusOffset="0xB4" xd:handshakeRef="ap_vld" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(status_code)" xd:originalName="status_code" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0xC0" xd:statusOffset="0xC4" xd:handshakeRef="ap_vld" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(processed_rows)" xd:originalName="processed_rows" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0xD0" xd:statusOffset="0xD4" xd:handshakeRef="ap_vld" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(perf_cycles_total)" xd:originalName="perf_cycles_total" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0xE0" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(perf_cycles_total)" xd:originalName="perf_cycles_total" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0xE4" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(perf_cycles_compute)" xd:originalName="perf_cycles_compute" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0xF8" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(perf_cycles_compute)" xd:originalName="perf_cycles_compute" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0xFC" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(perf_read_beats)" xd:originalName="perf_read_beats" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x110" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(perf_read_beats)" xd:originalName="perf_read_beats" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x114" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(perf_write_beats)" xd:originalName="perf_write_beats" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x128" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(perf_write_beats)" xd:originalName="perf_write_beats" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x12C" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(output_crc)" xd:originalName="output_crc" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x140" xd:statusOffset="0x144" xd:handshakeRef="ap_vld" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(build_config)" xd:originalName="build_config" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x150" xd:statusOffset="0x154" xd:handshakeRef="ap_vld" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(capabilities)" xd:originalName="capabilities" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x160" xd:statusOffset="0x164" xd:handshakeRef="ap_vld" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(vocab_rows_done)" xd:originalName="vocab_rows_done" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x170" xd:statusOffset="0x174" xd:handshakeRef="ap_vld" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(weight_read_beats_128)" xd:originalName="weight_read_beats_128" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x180" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(weight_read_beats_128)" xd:originalName="weight_read_beats_128" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x184" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(history_read_words)" xd:originalName="history_read_words" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x198" xd:statusOffset="0x19C" xd:handshakeRef="ap_vld" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(logits_write_beats_128)" xd:originalName="logits_write_beats_128" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x1A8" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(logits_write_beats_128)" xd:originalName="logits_write_beats_128" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x1AC" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(weight_wait_cycles)" xd:originalName="weight_wait_cycles" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x1C0" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(weight_wait_cycles)" xd:originalName="weight_wait_cycles" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x1C4" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(dot_active_cycles)" xd:originalName="dot_active_cycles" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x1D8" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(dot_active_cycles)" xd:originalName="dot_active_cycles" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x1DC" xd:handshakeRef="ap_none" xd:dataWidth="32"/>
+  <xd:arg xd:name="*(logits_written)" xd:originalName="logits_written" xd:direction="out" xd:interfaceRef="s_axi_control" xd:busTypeRef="axilite" xd:offset="0x1F0" xd:statusOffset="0x1F4" xd:handshakeRef="ap_vld" xd:dataWidth="32"/>
+  <xd:latencyEstimates xd:best-case="undef" xd:worst-case="undef" xd:average-case="undef"/>
+  <xd:resourceEstimates xd:LUT="43308" xd:FF="34923" xd:BRAM="0" xd:DSP="59"/>
+</xd:acceleratorMap>

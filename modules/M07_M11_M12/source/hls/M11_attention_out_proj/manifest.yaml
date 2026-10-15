@@ -1,0 +1,62 @@
+# Current maintained implementation; historical manifests backed up in baseline ZIP.
+module:
+  module_id: 11
+  name: m11
+  interface_revision: v2
+  status: csim-and-vivado-ooc-synthesis-pass-board-pending
+hls:
+  v2_top_function: attention_out_v2_hls
+  tool_version: Vitis_HLS_2021.1
+  target_part: xczu9eg-ffvb1156-2-i
+  ip_version: "3.1"
+  vlnv: "xilinx.com:hls:attention_out_v2_hls:3.1"
+  ip_repository: ip_v2_resource_fit_20261012/m11
+  build_script_from_workspace_root: tools/build_resource_fit_hls.tcl
+  testbench_from_package_root: tests/crc_control_tb.cpp
+interfaces:
+  abi_version: 2
+  control_base: 0xB0060000
+  data_width_bits: 128
+  data_master_count: 3
+  control_interface: s_axi_control
+  result_transport: AXI-Lite-common-result-fields
+  supported_flags_mask: 0xB
+  snapshot_supported: false
+  strict_validation: PS-checks-64-byte-alignment-PL-DDR-range-and-output-alias
+build:
+  build_config: 0x40008041
+  revision: 4
+  row_parallel: 4
+  bf16_lanes: 8
+  weight_stream_ii: 1
+  output_buffer: FP32-BRAM
+  weight_layout: W_OG32_I_L32_V2
+  decode_weight_passes: 1
+  prefill_64_weight_passes: 16
+performance:
+  total_cycles: RTL-inclusive-start-through-done
+  data_beats: sum-native-AXI-VALID-and-READY-handshakes
+  compute_cycles: 0-unavailable
+registers:
+  - {name: x, offset: 0x010}
+  - {name: weight, offset: 0x01c}
+  - {name: y, offset: 0x028}
+  - {name: run_mode, offset: 0x034}
+  - {name: valid_rows, offset: 0x03c}
+  - {name: hidden_size, offset: 0x044}
+  - {name: layout_id, offset: 0x04c}
+  - {name: abi_version, offset: 0x054}
+  - {name: job_id, offset: 0x05c}
+  - {name: flags, offset: 0x064}
+  - {name: result_status_code, offset: 0x06c}
+  - {name: result_processed_rows, offset: 0x07c}
+  - {name: result_perf_cycles_total, offset: 0x08c}
+  - {name: result_perf_cycles_compute, offset: 0x0a4}
+  - {name: result_perf_read_beats, offset: 0x0bc}
+  - {name: result_perf_write_beats, offset: 0x0d4}
+  - {name: result_output_crc, offset: 0x0ec}
+  - {name: result_build_config, offset: 0x0fc}
+verification:
+  full_datapath_rtl_cosim: pending
+  board: pending
+  prior_board_reports: historical-revision-only
